@@ -1,10 +1,12 @@
+
+<%@ page contentType="text/html; charset=UTF-8" %>
+<%@ page language="java" %>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta http-equiv="X-UA-Compatible" content="ie=edge">
-<title>Sign Up </title>
+
+<title>Đăng ký </title>
 
 <!-- Font Icon -->
 <link rel="stylesheet"
@@ -23,43 +25,41 @@
 			<div class="container">
 				<div class="signup-content">
 					<div class="signup-form">
-						<h2 class="form-title">Sign up</h2>
+						<h2 class="form-title">Đăng ký</h2>
 					
 						<form method="post" action="register" class="register-form"
 							id="register-form">
 							<div class="form-group">
 								<label for="name"><i
 									class="zmdi zmdi-account material-icons-name"></i></label> <input
-									type="text" name="name" id="name" placeholder="Your Name" required="required"/>
+									type="text" name="name" id="name" placeholder="Tên của bạn" required="required"/>
 							</div>
 							<div class="form-group">
 								<label for="email"><i class="zmdi zmdi-email"></i></label> <input
-									type="email" name="email" id="email" placeholder="Your Email" required="required"/>
+									type="email" name="email" id="email" placeholder="Email của bạn" required="required"/>
 							</div>
 							<div class="form-group">
 								<label for="pass"><i class="zmdi zmdi-lock"></i></label> <input
-									type="password" name="pass" id="pass" placeholder="Password" required="required"/>
+									type="password" name="pass" id="pass" placeholder="Mật khẩu" required="required"/>
 							</div>
 							<div class="form-group">
 								<label for="re-pass"><i class="zmdi zmdi-lock-outline"></i></label>
 								<input type="password" name="re_pass" id="re_pass"
-									placeholder="Repeat your password" required="required"/>
+									placeholder="Nhập lại mật khẩu" required="required"/>
 							</div>
 							<div class="form-group">
 								<label for="contact"><i class="zmdi zmdi-lock-outline"></i></label>
 								<input type="text" name="contact" id="contact"
-									placeholder="Contact no" required="required"/>
+									placeholder="Liên hệ" required="required"/>
 							</div>
 							<div class="form-group">
 								<input type="checkbox" name="agree-term" id="agree-term"
 									class="agree-term" /> <label for="agree-term"
-									class="label-agree-term"><span><span></span></span>I
-									agree all statements in <a href="#" class="term-service">Terms
-										of service</a></label>
+									class="label-agree-term"><span><span></span></span>Tôi đồng ý với chính sách <a href="#" class="term-service">dịch vụ của bạn</a></label>
 							</div>
 							<div class="form-group form-button">
 								<input type="submit" name="signup" id="signup"
-									class="form-submit" value="Register" />
+									class="form-submit" value="Đăng ký" />
 							</div>
 						</form>
 					</div>
@@ -67,8 +67,8 @@
 						<figure>
 							<img src="images/signup-image.jpg" alt="sing up image">
 						</figure>
-						<a href="login.jsp" class="signup-image-link">I am already
-							member</a>
+						<a href="login.jsp" class="signup-image-link">Bạn đã có tài khoản
+							</a>
 					</div>
 				</div>
 			</div>

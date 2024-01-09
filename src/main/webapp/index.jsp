@@ -6,14 +6,18 @@
 		response.sendRedirect("login.jsp");
 	}
 %>
+
+<%@ page contentType="text/html; charset=UTF-8" %>
+<%@ page language="java" %>
+<%@ page import="java.sql.ResultSet" %>
+<%@ page import="java.sql.Statement" %>
+<%@ page import="java.sql.Connection" %>
+<%@ page import="java.sql.DriverManager" %>
 <!DOCTYPE html>
 <html lang="en">
     <head>
-        <meta charset="utf-8" />
-        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
-        <meta name="description" content="" />
-        <meta name="author" content="" />
-        <title>Website Tim Tro</title>
+        
+        <title>Website tìm trọ và đặt phòng trọ</title>
         <!-- Favicon-->
         <link rel="icon" type="image/x-icon" href="assets/favicon.ico" />
         <!-- Bootstrap Icons-->
@@ -31,15 +35,16 @@
         <!-- Navigation-->
         <nav class="navbar navbar-expand-lg navbar-light fixed-top py-3" id="mainNav">
             <div class="container px-4 px-lg-5">
-                <a class="navbar-brand" href="#page-top">TIM TRO VA DAT PHONG</a>
+                <a class="navbar-brand" href="#page-top">TÌM TRỌ VÀ ĐẶT PHÒNG TRỌ</a>
                 <button class="navbar-toggler navbar-toggler-right" type="button" data-bs-toggle="collapse" data-bs-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation"><span class="navbar-toggler-icon"></span></button>
                 <div class="collapse navbar-collapse" id="navbarResponsive">
                     <ul class="navbar-nav ms-auto my-2 my-lg-0">
-                        <li class="nav-item"><a class="nav-link" href="#masthead">Trang chu</a></li>
-                        <li class="nav-item"><a class="nav-link" href="#services">Gioi thieu</a></li>
-                        <li class="nav-item"><a class="nav-link" href="phongtro.jsp">Phong tro</a></li>
-                        <li class="nav-item"><a class="nav-link" href="#contact">Lien he</a></li>
-                        <li class="nav-item"><a class="nav-link " href="logout">Dang xuat</a></li>
+                        <li class="nav-item"><a class="nav-link" href="#masthead">Trang chủ</a></li>
+                        <li class="nav-item"><a class="nav-link" href="#services">Giới thiệu</a></li>
+                        <li class="nav-item"><a class="nav-link" href="timkiemphongtro.jsp">Phòng trọ</a></li>
+                        <li class="nav-item"><a class="nav-link" href="#contact">Liên hệ</a></li>
+                        <li class="nav-item"><a class="nav-link " href="logout">Quản lý </a></li>
+                        <li class="nav-item"><a class="nav-link " href="logout">Đăng xuất</a></li>
 						<li class="nav-item bg-danger"><a class="nav-link" href="logout"><%=session.getAttribute("name") %></a></li>
                     </ul>
                 </div>
@@ -50,12 +55,12 @@
             <div class="container px-4 px-lg-5 h-100">
                 <div class="row gx-4 gx-lg-5 h-100 align-items-center justify-content-center text-center">
                     <div class="col-lg-8 align-self-end">
-                        <h1 class="text-white font-weight-bold">Chao mung ban den voi website tim phong va dat phong tro</h1>
+                        <h1 class="text-white font-weight-bold"> Chào mừng bạn đến với website tìm phòng và đặt phòng trọ</h1>
                         <hr class="divider" />
                     </div>
                     <div class="col-lg-8 align-self-baseline">
-                        <p class="text-white-75 mb-5">Tai day chung toi se cung cap cho ban nhung can phong tro hop li, phu hop ngan sach cua cac ban</p>
-                        <a class="btn btn-primary btn-xl" href="#portfolio">Kham pha ngay</a>
+                        <p class="text-white-75 mb-5">Tại đây chúng tôi sẽ cung cấp cho bạn những căn phòng trọ hợp lí, phù hợp với ngân sách của các bạn </p>
+                        <a class="btn btn-primary btn-xl" href="#portfolio">Khám phá ngay</a>
                     </div>
                 </div>
             </div>
@@ -65,35 +70,35 @@
         <!-- Services-->
         <section class="page-section" id="services">
             <div class="container px-4 px-lg-5">
-                <h2 class="page-section-heading text-center text-uppercase text-secondary mt-0">Dich vu cua chung toi</h2>
+                <h2 class="page-section-heading text-center text-uppercase text-secondary mt-0">Dịch vụ của chúng tôi</h2>
                 <hr class="divider" />
                 <div class="row gx-4 gx-lg-5">
                     <div class="col-lg-3 col-md-6 text-center">
                         <div class="mt-5">
                             <div class="mb-2"><i class="bi-gem fs-1 text-primary"></i></div>
-                            <h3 class="h4 mb-2">Ho tro</h3>
-                            <p class="text-muted mb-0">Chung toi ho tro ban tim kiem phong tro trong thanh pho Da Nang mot cach nhanh chong va hieu qua nhat</p>
+                            <h3 class="h4 mb-2">Hỗ trợ</h3>
+                            <p class="text-muted mb-0"> Chúng tôi hỗ trợ bạn tìm kiếm phòng trọ trong thành phố Đà Nẵng một cách nhanh chóng và hiệu quả nhất </p>
                         </div>
                     </div>
                     <div class="col-lg-3 col-md-6 text-center">
                         <div class="mt-5">
                             <div class="mb-2"><i class="bi-laptop fs-1 text-primary"></i></div>
-                            <h3 class="h4 mb-2">Gia thanh</h3>
-                            <p class="text-muted mb-0">Chung toi luon uu tien gioi thieu nhung phong tro voi muc gia hop ly va chat luong phong tot, phu hop voi da so nguoi dung dac biet la sinh vien</p>
+                            <h3 class="h4 mb-2">Giá thành</h3>
+                            <p class="text-muted mb-0"> Chúng tôi luôn ưu tiên những phòng trọ với mức giá hợp lý và chất lượng phòng tốt, phù hợp với đa số người dùng đặc biệt là sinh viên </p>
                         </div>
                     </div>
                     <div class="col-lg-3 col-md-6 text-center">
                         <div class="mt-5">
                             <div class="mb-2"><i class="bi-globe fs-1 text-primary"></i></div>
-                            <h3 class="h4 mb-2">Cong dong</h3>
-                            <p class="text-muted mb-0">Chung toi da xay dung mot cong dong giup chu nha tro va nguoi thue nha ket noi voi nhau mot cach de dang va thuan tien hon</p>
+                            <h3 class="h4 mb-2">Cộng đồng</h3>
+                            <p class="text-muted mb-0">Chúng tôi đã xây dựng một cộng đồng giúp chủ nhà trọ và người thuê nhà kết nối với nhau một cách dễ dàng và thuận tiện hơn </p>
                         </div>
                     </div>
                     <div class="col-lg-3 col-md-6 text-center">
                         <div class="mt-5">
                             <div class="mb-2"><i class="bi-heart fs-1 text-primary"></i></div>
-                            <h3 class="h4 mb-2">Ung ho</h3>
-                            <p class="text-muted mb-0">Mong rang trang web cua chung toi se nhan duoc su danh gia nhiet tinh tu cac ban</p>
+                            <h3 class="h4 mb-2">Ủng hộ</h3>
+                            <p class="text-muted mb-0">Mong rằng trang web của chúng tôi sẽ nhận được sự đánh giá nhiệt tình từ các bạn</p>
                         </div>
                     </div>
                 </div>
@@ -103,7 +108,7 @@
         <section class="page-section portfolio" id="portfolio">
             <div class="container">
                 <!-- Portfolio Section Heading-->
-                <h2 class="page-section-heading text-center text-uppercase text-secondary mb-0">Phong tro moi nhat</h2>
+                <h2 class="page-section-heading text-center text-uppercase text-secondary mb-0">Phòng trọ mới nhất</h2>
                 <!-- Icon Divider-->
                 <div class="divider-custom">
                     <div class="divider-custom-line"></div>
@@ -116,7 +121,7 @@
                     <div class="col-md-6 col-lg-4 mb-5">
                         <div class="portfolio-item mx-auto" data-bs-toggle="modal" data-bs-target="#portfolioModal1">
                             <div class="portfolio-item-caption d-flex align-items-center justify-content-center h-100 w-100">
-                                <div class="portfolio-item-caption-content text-center text-white"><button class="ask">Tim hieu them</button></div>
+                                <div class="portfolio-item-caption-content text-center text-white"><button class="ask">Tìm hiểu thêm</button></div>
                             </div>
                             <img class="img-fluid" src="assets/img/portfolio/phongtro/1.jpg" alt="..." />
                         </div>
@@ -125,7 +130,7 @@
                     <div class="col-md-6 col-lg-4 mb-5">
                         <div class="portfolio-item mx-auto" data-bs-toggle="modal" data-bs-target="#portfolioModal2">
                             <div class="portfolio-item-caption d-flex align-items-center justify-content-center h-100 w-100">
-                                <div class="portfolio-item-caption-content text-center text-white"><button class="ask">Tim hieu them</button></div>
+                                <div class="portfolio-item-caption-content text-center text-white"><button class="ask">Tìm hiểu thêm</button></div>
                             </div>
                             <img class="img-fluid" src="assets/img/portfolio/phongtro/2.jpg" alt="..." />
                         </div>
@@ -134,7 +139,7 @@
                     <div class="col-md-6 col-lg-4 mb-5">
                         <div class="portfolio-item mx-auto" data-bs-toggle="modal" data-bs-target="#portfolioModal3">
                             <div class="portfolio-item-caption d-flex align-items-center justify-content-center h-100 w-100">
-                                <div class="portfolio-item-caption-content text-center text-white"><button class="ask">Tim hieu them</button></div>
+                                <div class="portfolio-item-caption-content text-center text-white"><button class="ask">Tìm hiểu thêm</button></div>
                             </div>
                             <img class="img-fluid" src="assets/img/portfolio/phongtro/3.jpg" alt="..." />
                         </div>
@@ -143,7 +148,7 @@
                     <div class="col-md-6 col-lg-4 mb-5 mb-lg-0">
                         <div class="portfolio-item mx-auto" data-bs-toggle="modal" data-bs-target="#portfolioModal4">
                             <div class="portfolio-item-caption d-flex align-items-center justify-content-center h-100 w-100">
-                                <div class="portfolio-item-caption-content text-center text-white"><button class="ask">Tim hieu them</button></div>
+                                <div class="portfolio-item-caption-content text-center text-white"><button class="ask">Tìm hiểu thêm</button></div>
                             </div>
                             <img class="img-fluid" src="assets/img/portfolio/phongtro/4.jpg" alt="..." />
                         </div>
@@ -152,7 +157,7 @@
                     <div class="col-md-6 col-lg-4 mb-5 mb-md-0">
                         <div class="portfolio-item mx-auto" data-bs-toggle="modal" data-bs-target="#portfolioModal5">
                             <div class="portfolio-item-caption d-flex align-items-center justify-content-center h-100 w-100">
-                                <div class="portfolio-item-caption-content text-center text-white"><button class="ask">Tim hieu them</button></div>
+                                <div class="portfolio-item-caption-content text-center text-white"><button class="ask">Tìm hiểu thêm</button></div>
                             </div>
                             <img class="img-fluid" src="assets/img/portfolio/phongtro/5.jpg" alt="..." />
                         </div>
@@ -161,7 +166,7 @@
                     <div class="col-md-6 col-lg-4">
                         <div class="portfolio-item mx-auto" data-bs-toggle="modal" data-bs-target="#portfolioModal6">
                             <div class="portfolio-item-caption d-flex align-items-center justify-content-center h-100 w-100">
-                                <div class="portfolio-item-caption-content text-center text-white"><button class="ask">Tim hieu them</button></div>
+                                <div class="portfolio-item-caption-content text-center text-white"><button class="ask">Tìm hiểu thêm</button></div>
                             </div>
                             <img class="img-fluid" src="assets/img/portfolio/phongtro/6.jpg" alt="..." />
                         </div>
@@ -185,7 +190,7 @@
                     <div class="row justify-content-center">
                       <div class="col-lg-9">
                         <!-- Portfolio Modal - Title-->
-                        <h2 class="portfolio-modal-title text-secondary text-uppercase mb-0">Thong tin phong tro</h2>
+                        <h2 class="portfolio-modal-title text-secondary text-uppercase mb-0">Thông tin phòng trọ</h2>
                         <!-- Icon Divider-->
                         <div class="divider-custom">
                           <div class="divider-custom-line"></div>
@@ -195,34 +200,34 @@
                         <!-- Portfolio Modal - Image-->
                         <img class="img-fluid rounded mb-5" src="assets/img/portfolio/phongtro/1.jpg" alt="..." />
                         <!-- Portfolio Modal - Text-->
-                        <p class="mb-4">Dia chi: 67 Le Van Hien, Phuong Hoa Quy, Quan Ngu Hanh Son, Da Nang.</p>
-                        <h3 style="text-align: left;">Thong tin mo ta</h3>
+                        <p class="mb-4">Địa chỉ: 67 Lê Văn Hiến, Phường Hòa Quý, Quận Ngũ Hành Sơn, Đà Nẵng.</p>
+                        <h3 style="text-align: left;">Thông tin mô tả</h3>
                         <p style="text-align: left;">
-                          Cho thue phong tro 12m2, 16m2, 20m2, 24m2, 30m2 tu 1,8 trieu - 3 trieu tai 67 Le Van Hien - Da Nang
+                          Cho thuê phòng trọ 12m2, 16m2, 20m2, 24m2, 30m2 từ 1,8 triệu - 3 triệu tại 67 Lê Văn Hiến - Đà Nẵng
                           <br>
-                          Phong tro moi xay, co gac lung,tien nghi. Co ve sinh trong phong. Co phong de xe chung. Anh sang day du, thoang khi. Tran cach nhiet mat me.
+                          Phòng trọ mới xây, có gác lửng, tiện nghi. Có vệ sinh trong phòng, có phòng để xe chung, ánh sáng đầy đủ thoáng khí. Trần cách nhiệt mát mẻ.
                           <br>
-                          1. Phong 12m2: Cua so, Bep, WC, Gac lung chua do 3m2, de xe truoc phong. Loi vao cach duong lon 15m <br>
-                          Gia thue: 1.300.000d <br>
-                          2. Phong 16m2: Cua so, Bep, WC, Gac lung chua do 3m2, de xe truoc phong. Loi vao cach duong lon 15m <br>
-                          Gia thue: 1.500.000d <br>
-                          3. Phong 20m2 + Gac lung 4m2: Cua so , Bep, WC, Gac lung, cho de xe, hien hong gio.
-                          Loi vao cach duong lon 25m. <br>
-                          Gia thue : 2.000.000d  <br>
-                          4. Phong 24m2 + Gac lung 3m2: Cua so , Bep, WC, Gac lung, cho de xe, hien hong gio.
-                          Loi vao cach duong lon 25m. <br>
-                          Gia thue : 2.500.000d  <br>
-                          5. Phong 30m2 : Cua so , Phong bep + giat rieng, WC, gac lung chua do 2m2, cua phu ra cho de xe, hien hong gio. Loi vao rieng tu kiet, cach duong lon 20m. Kep phong de xe va sinh hoat. <br>
-                          Gia thue 3.000.000d  
+                          1. Phòng 12m2: Cửa sổ, bếp, WC, gác lửng chứa đồ 3m2, để xe trước phòng. Lối vào cách đường lớn 15m <br>
+                          Giá thuê: 1.300.000d <br>
+                          2. Phòng 16m2: Cửa sổ, bếp, WC, gác lửng chứa đồ 3m2, để xe trước phòng. Lối vào cách đường lớn 15m <br>
+                          Giá thuê: 1.500.000d <br>
+                          3. Phòng 20m2 + Gác lửng 4m2: Cửa sổ, bếp, WC, cho để xe, hiên hóng gió.
+                          Lối vào cách đường lớn 25m. <br>
+                          Giá thuê : 2.000.000d  <br>
+                          4. Phòng 24m2 + Gac lung 3m2: Cửa sổ, bếp, WC, cho để xe, hiên hóng gió.
+                          Lối vào cách đường lớn 25m. <br>
+                          Giá thuê : 2.500.000d  <br>
+                          5. Phòng 30m2 : Cửa sổ , phòng bếp + giặt riêng, WC, gác lửng chứa đồ 2m2, cửa phụ ra chổ để xe,hiên hóng gió. Lối vào cách đường lớn 20m. Có phòng để xe và sinh hoạt <br>
+                          Giá thuê: 3.000.000d  
                         </p>
-                        <h3>Thong tin lien he</h3>
+                        <h3>Thông tin liên hệ chủ trọ</h3>
                         <table class="table table-hover" style="text-align: left;">
                           <tr class="table-primary">
-                            <td class="table-light">Lien he</td>
-                            <td class="table-light">Nguyen Van A</td>
+                            <td class="table-light">Liên hệ</td>
+                            <td class="table-light">Nguyễn Văn An</td>
                           </tr>
                           <tr class="table-primary">
-                            <td class="table-light">Dien thoai</td>
+                            <td class="table-light">Điện thoại</td>
                             <td class="table-light">012345678</td>
                           </tr>
                           <tr class="table-primary">
@@ -237,36 +242,36 @@
                         <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3834.9382257888125!2d108.22088631485259!3d16.04002488889164!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x31427ebe67e4e9d1%3A0x3d9a82d4f7d5c2c9!2zNjcgTGUgVmFuIEhlaW4sIFBob25nIFBob2EgUGxhemEsIFF1YW4gTmd1IEhhbmhzb24gU29uLCBEYSBOYW5n!5e0!3m2!1sen!2s!4v1623648339353!5m2!1sen!2s" width="100%" height="450" style="border:0;" allowfullscreen="" loading="lazy"></iframe>
                         <hr>
                         <br>
-                        <h6>Neu ban muon dat truoc phong tro co the dien vao form duoi day:</h6> <br>
-                        <h3>Form dat phong</h3>
+                        <h6>Nếu bạn muốn đặt trước phòng trọ có thể điền vào form dưới đây:</h6> <br>
+                        <h3>Form đặt phòng</h3>
                         <form action="portfolioModal1" id="contactForm" method="post" data-sb-form-api-token="API_TOKEN">
                           <div class="row">
                             <div class="form-group col-md-6">
-                              <input class="form-control" id="inputname" name="inputname" type="text" placeholder="Ten cua ban *" data-sb-validations="required" required/>
-                              <div class="invalid-feedback" data-sb-feedback="name:required">Ten cua ban la bat buoc.</div>
+                              <input class="form-control" id="inputname" name="inputname" type="text" placeholder="Tên của bạn *" data-sb-validations="required" required/>
+                              <div class="invalid-feedback" data-sb-feedback="name:required">Tên của bạn là bắt buộc</div>
                             </div>
                             <div class="form-group col-md-6">
-                              <input class="form-control" id="inputphone" name="inputphone" type="tel" placeholder="So dien thoai cua ban *" data-sb-validations="required" required/>
-                              <div class="invalid-feedback" data-sb-feedback="phone:required">So dien thoai cua ban la bat buoc.</div>
+                              <input class="form-control" id="inputphone" name="inputphone" type="tel" placeholder="Số điện thoại của bạn *" data-sb-validations="required" required/>
+                              <div class="invalid-feedback" data-sb-feedback="phone:required">Số điện thoại của bạn là bắt buộc</div>
                             </div>
                             <div class="form-group col-md-6">
-                                <input class="form-control" id="inputaddress" name="inputaddress" type="text" placeholder="Dia chi hien tai cua ban *" data-sb-validations="required" required/>
-                                <div class="invalid-feedback" data-sb-feedback="inputaddress:required">Dia chi cua ban la bat buoc.</div>
+                                <input class="form-control" id="inputaddress" name="inputaddress" type="text" placeholder="Địa chỉ hiện tại của bạn *" data-sb-validations="required" required/>
+                                <div class="invalid-feedback" data-sb-feedback="inputaddress:required">Địa chỉ của bạn là bắt buộc</div>
                             </div>
                             <div class="form-group col-md-6">
-                                <input class="form-control" id="inputemail" name="inputemail" type="email" placeholder="Email cua ban *" data-sb-validations="required" required/>
-                                <div class="invalid-feedback" data-sb-feedback="phone:required">Email cua ban la bat buoc.</div>
+                                <input class="form-control" id="inputemail" name="inputemail" type="email" placeholder="Email của bạn *" data-sb-validations="required" required/>
+                                <div class="invalid-feedback" data-sb-feedback="phone:required">Email của bạn là bắt buộc.</div>
                             </div>
                             <br>
                             <br>
                             <div class="form-group col-md-6">
-                                <label for="inputgender" class="form-label" style="float: left;">Gioi tinh</label> 
+                                <label for="inputgender" class="form-label" style="float: left;">Giới tính</label> 
                                 <input type="checkbox" name="gender" value="Nam" class="form-check-label"> Nam
-                                <input type="checkbox" name="gender" value="Nu" class="form-check-label"> Nu
+                                <input type="checkbox" name="gender" value="Nu" class="form-check-label"> Nữ
                             </div>
                             <br>
                             <div class="form-group col-md-6">
-                                <label for="thoigian" style="text-align: left;">Thoi gian dat coc:
+                                <label for="thoigian" style="text-align: left;">Thời gian đặt cọc:
                                     <input type="date" name="thoigian" id="thoigian" required>
                                 </label>
                             </div>
@@ -274,35 +279,78 @@
                           <div class="row">
                           <div class="form-group col-md-6">
                               <select class="form-control" id="diachiphongtro" name="diachiphongtro" required>
-                              <option value="Chon dia chi cua phong tro" disabled selected hidden>Chon dia chi cua phong tro</option>
-                                <option value="67 Le Van Hien">67 Le Van Hien</option>
-                                <option value="100 Nui Thanh">100 Nui Thanh</option>
-                                <option value="335 Truong Chinh">335 Truong Chinh</option>
-                                <option value="47 Phan Dang Luu">47 Phan Dang Luu</option>
-                                <option value="88 Nam Ky Khoi Nghia">88 Nam Ky Khoi Nghia</option>
-                                <option value="214 Trung Vuong">214 Trung Vuong</option>
+                              <option value="Chọn địa chỉ của phòng trọ" disabled selected hidden>Chọn địa chỉ của phòng trọ</option>
+                              <%
+								try
+								{
+									Class.forName("com.mysql.jdbc.Driver");
+									String url = "jdbc:mysql://localhost:3306/youtube";
+									String username = "root";
+									String password = "";
+									String query = "select * from phongtrolvh";
+									Connection conn = DriverManager.getConnection(url, username, password);
+									Statement stmt = conn.createStatement();
+									ResultSet rs = stmt.executeQuery(query);
+									while (rs.next()) {
+								%>
+								<option value="<%=rs.getString(2)%>"><%=rs.getString("diachi") %></option>
+								<%
+								}
+								%>
+			
+			
+								<%
+								rs.close();
+								stmt.close();
+								conn.close();
+								} catch (Exception e) {
+								e.printStackTrace();
+								}
+								%>
+                                
                               </select>
                             </div>
-                            <div class="form-group col-md-6">
-                              <select class="form-control" id="dientich" name="dientich" required>
-                              <option value="Chon dien tich phong tro" disabled selected hidden>Chon dien tich phong tro</option>
-                                <option value="12m2">Phong 12m2 - 1.300.000d</option>
-                                <option value="16m2">Phong 16m2 - 1.500.000d</option>
-                                <option value="20m2">Phong 20m2 - 2.000.000d</option>
-                                <option value="24m2">Phong 24m2 - 2.500.000d</option>
-                                <option value="30m2">Phong 30m2 - 3.000.000d</option>
-                              </select>
-                            </div>
-                            <div class="form-group col-md-6">
-                              <input class="form-control" id="nguoio" name="nguoio" type="number" placeholder="So nguoi o cung" />
+                             <div class="form-group col-md-6">
+						    <select class="form-control" id="dientich" name="dientich" required>
+						        <option value="Chọn diện tích phòng trọ" disabled selected hidden>Chọn diện tích phòng trọ</option>
+						        <% 
+						        try {
+						            Class.forName("com.mysql.jdbc.Driver");
+						            String url = "jdbc:mysql://localhost:3306/youtube";
+						            String username = "root";
+						            String password = "";
+						            String query = "select * from phongtrolvh";
+						            Connection conn = DriverManager.getConnection(url, username, password);
+						            Statement stmt = conn.createStatement();
+						            ResultSet rs = stmt.executeQuery(query);
+						            while (rs.next()) {
+						                String dientich = rs.getString("dientich");
+						                int giathanh = rs.getInt("giathanh");
+						                if (dientich != null && giathanh != 0) {
+						        %>
+						        <option value="<%=rs.getString(3)%>">Phòng <%=dientich%> - <%=giathanh%>VNĐ</option>
+						        <%
+						                }
+						            }
+						            rs.close();
+						            stmt.close();
+						            conn.close();
+						        } catch (Exception e) {
+						            e.printStackTrace();
+						        }
+						        %>
+						    </select>
+						</div>
+							<div class="form-group col-md-6">
+                              <input class="form-control" id="nguoio" name="nguoio" type="number" placeholder="Số người ở cùng" />
                             </div>
                           </div>
                           <div class="form-group">
-                            <textarea class="form-control" id="loinhan" name="loinhan" placeholder="Them thong tin"></textarea>
+                            <textarea class="form-control" id="loinhan" name="loinhan" placeholder="Thêm lời nhắn"></textarea>
                           </div>
                           <div class="d-none" data-sb-form-success="true">
                             <div class="text-center">
-                              <p>Cam on ban da dat phong. Chung toi se lien he voi ban trong thoi gian som nhat.</p>
+                              <p>Cảm ơn bạn đã đặt phòng. Chúng tôi sẽ liên hệ với bạn sớm nhất.</p>
                             </div>
                           </div>
                           <br>
@@ -310,11 +358,11 @@
                           <div style="text-align: center;">
                             <button class="btn btn-primary" id="submitButton" type="submit" style="width: 130px; text-align: center;">
                                 
-                                Dat phong
+                                Đặt phòng
                             </button>
                             <button class="btn btn-primary" data-bs-dismiss="modal" style="width: 100px;">
                                 <i class="fas fa-xmark fa-fw"></i>
-                                Thoat
+                                Thoát
                             </button>
                            </div>
                         </form>
@@ -337,7 +385,7 @@
                     <div class="row justify-content-center">
                       <div class="col-lg-9">
                         <!-- Portfolio Modal - Title-->
-                        <h2 class="portfolio-modal-title text-secondary text-uppercase mb-0">Thong tin phong tro</h2>
+                        <h2 class="portfolio-modal-title text-secondary text-uppercase mb-0">Thông tin phòng trọ</h2>
                         <!-- Icon Divider-->
                         <div class="divider-custom">
                           <div class="divider-custom-line"></div>
@@ -347,34 +395,34 @@
                         <!-- Portfolio Modal - Image-->
                         <img class="img-fluid rounded mb-5" src="assets/img/portfolio/phongtro/2.jpg" alt="..." />
                         <!-- Portfolio Modal - Text-->
-                        <p class="mb-4">Dia chi: 100 Nui Thanh, Hoa Cuong Nam, Quan Hai Chau, Da Nang.</p>
-                        <h3 style="text-align: left;">Thong tin mo ta</h3>
+                        <p class="mb-4">Dia chi: 100 Núi Thành, Hòa Cường Nam, Quận Hải Châu, Đà Nẵng.</p>
+                        <h3 style="text-align: left;">Thông tin mô tả</h3>
                         <p style="text-align: left;">
-                          Cho thue phong tro 12m2, 16m2, 20m2, 24m2, 30m2 tu 1,8 trieu - 3 trieu tai 100 Nui Thanh - Da Nang
+                          Cho thuê phòng trọ 12m2, 16m2, 20m2, 24m2, 30m2 từ 1,8 triệu - 3 triệu tại 67 Lê Văn Hiến - Đà Nẵng
                           <br>
-                          Phong tro moi xay, co gac lung,tien nghi. Co ve sinh trong phong. Co phong de xe chung. Anh sang day du, thoang khi. Tran cach nhiet mat me.
+                          Phòng trọ mới xây, có gác lửng, tiện nghi. Có vệ sinh trong phòng, có phòng để xe chung, ánh sáng đầy đủ thoáng khí. Trần cách nhiệt mát mẻ.
                           <br>
-                          1. Phong 12m2: Cua so, Bep, WC, Gac lung chua do 3m2, de xe truoc phong. Loi vao cach duong lon 15m <br>
-                          Gia thue: 1.300.000d <br>
-                          2. Phong 16m2: Cua so, Bep, WC, Gac lung chua do 3m2, de xe truoc phong. Loi vao cach duong lon 15m <br>
-                          Gia thue: 1.500.000d <br>
-                          3. Phong 20m2 + Gac lung 4m2: Cua so , Bep, WC, Gac lung, cho de xe, hien hong gio.
-                          Loi vao cach duong lon 25m. <br>
-                          Gia thue : 2.000.000d  <br>
-                          4. Phong 24m2 + Gac lung 3m2: Cua so , Bep, WC, Gac lung, cho de xe, hien hong gio.
-                          Loi vao cach duong lon 25m. <br>
-                          Gia thue : 2.500.000d  <br>
-                          5. Phong 30m2 : Cua so , Phong bep + giat rieng, WC, gac lung chua do 2m2, cua phu ra cho de xe, hien hong gio. Loi vao rieng tu kiet, cach duong lon 20m. Kep phong de xe va sinh hoat. <br>
-                          Gia thue 3.000.000d  
+                          1. Phòng 12m2: Cửa sổ, bếp, WC, gác lửng chứa đồ 3m2, để xe trước phòng. Lối vào cách đường lớn 15m <br>
+                          Giá thuê: 1.300.000d <br>
+                          2. Phòng 16m2: Cửa sổ, bếp, WC, gác lửng chứa đồ 3m2, để xe trước phòng. Lối vào cách đường lớn 15m <br>
+                          Giá thuê: 1.500.000d <br>
+                          3. Phòng 20m2 + Gác lửng 4m2: Cửa sổ, bếp, WC, cho để xe, hiên hóng gió.
+                          Lối vào cách đường lớn 25m. <br>
+                          Giá thuê : 2.000.000d  <br>
+                          4. Phòng 24m2 + Gac lung 3m2: Cửa sổ, bếp, WC, cho để xe, hiên hóng gió.
+                          Lối vào cách đường lớn 25m. <br>
+                          Giá thuê : 2.500.000d  <br>
+                          5. Phòng 30m2 : Cửa sổ , phòng bếp + giặt riêng, WC, gác lửng chứa đồ 2m2, cửa phụ ra chổ để xe,hiên hóng gió. Lối vào cách đường lớn 20m. Có phòng để xe và sinh hoạt <br>
+                          Giá thuê: 3.000.000d  
                         </p>
-                        <h3>Thong tin lien he</h3>
+                        <h3>Thông tin liên hệ chủ trọ</h3>
                         <table class="table table-hover" style="text-align: left;">
                           <tr class="table-primary">
-                            <td class="table-light">Lien he</td>
-                            <td class="table-light">Tran Thi Minh</td>
+                            <td class="table-light">Liên hệ</td>
+                            <td class="table-light">Trần Thị Minh</td>
                           </tr>
                           <tr class="table-primary">
-                            <td class="table-light">Dien thoai</td>
+                            <td class="table-light">Điện thoại</td>
                             <td class="table-light">012363678</td>
                           </tr>
                           <tr class="table-primary">
@@ -389,72 +437,115 @@
                         <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3834.9382257888125!2d108.22088631485259!3d16.04002488889164!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x31427ebe67e4e9d1%3A0x3d9a82d4f7d5c2c9!2zNjcgTGUgVmFuIEhlaW4sIFBob25nIFBob2EgUGxhemEsIFF1YW4gTmd1IEhhbmhzb24gU29uLCBEYSBOYW5n!5e0!3m2!1sen!2s!4v1623648339353!5m2!1sen!2s" width="100%" height="450" style="border:0;" allowfullscreen="" loading="lazy"></iframe>
                         <hr>
                         <br>
-                        <h6>Neu ban muon dat truoc phong tro co the dien vao form duoi day:</h6> <br>
-                        <h3>Form dat phong</h3>
+                        <h6>Nếu bạn muốn đặt trước phòng trọ có thể điền vào form dưới đây:</h6> <br>
+                        <h3>Form đặt phòng</h3>
                         <form action="portfolioModal1" id="contactForm" method="post" data-sb-form-api-token="API_TOKEN">
                           <div class="row">
                             <div class="form-group col-md-6">
-                              <input class="form-control" id="inputname" name="inputname" type="text" placeholder="Ten cua ban *" data-sb-validations="required" required/>
-                              <div class="invalid-feedback" data-sb-feedback="name:required">Ten cua ban la bat buoc.</div>
+                              <input class="form-control" id="inputname" name="inputname" type="text" placeholder="Tên của bạn *" data-sb-validations="required" required/>
+                              <div class="invalid-feedback" data-sb-feedback="name:required">Tên của bạn là bắt buộc</div>
                             </div>
                             <div class="form-group col-md-6">
-                              <input class="form-control" id="inputphone" name="inputphone" type="tel" placeholder="So dien thoai cua ban *" data-sb-validations="required" required/>
-                              <div class="invalid-feedback" data-sb-feedback="phone:required">So dien thoai cua ban la bat buoc.</div>
+                              <input class="form-control" id="inputphone" name="inputphone" type="tel" placeholder="Số điện thoại của bạn *" data-sb-validations="required" required/>
+                              <div class="invalid-feedback" data-sb-feedback="phone:required">Số điện thoại của bạn là bắt buộc</div>
                             </div>
                             <div class="form-group col-md-6">
-                                <input class="form-control" id="inputaddress" name="inputaddress" type="text" placeholder="Dia chi hien tai cua ban *" data-sb-validations="required" required/>
-                                <div class="invalid-feedback" data-sb-feedback="inputaddress:required">Dia chi cua ban la bat buoc.</div>
+                                <input class="form-control" id="inputaddress" name="inputaddress" type="text" placeholder="Địa chỉ hiện tại của bạn *" data-sb-validations="required" required/>
+                                <div class="invalid-feedback" data-sb-feedback="inputaddress:required">Địa chỉ của bạn là bắt buộc</div>
                             </div>
                             <div class="form-group col-md-6">
-                                <input class="form-control" id="inputemail" name="inputemail" type="email" placeholder="Email cua ban *" data-sb-validations="required" required/>
-                                <div class="invalid-feedback" data-sb-feedback="phone:required">Email cua ban la bat buoc.</div>
+                                <input class="form-control" id="inputemail" name="inputemail" type="email" placeholder="Email của bạn *" data-sb-validations="required" required/>
+                                <div class="invalid-feedback" data-sb-feedback="phone:required">Email của bạn là bắt buộc.</div>
                             </div>
                             <br>
                             <br>
                             <div class="form-group col-md-6">
-                                <label for="inputgender" class="form-label" style="float: left;">Gioi tinh</label> 
+                                <label for="inputgender" class="form-label" style="float: left;">Giới tính</label> 
                                 <input type="checkbox" name="gender" value="Nam" class="form-check-label"> Nam
-                                <input type="checkbox" name="gender" value="Nu" class="form-check-label"> Nu
+                                <input type="checkbox" name="gender" value="Nu" class="form-check-label"> Nữ
                             </div>
                             <br>
                             <div class="form-group col-md-6">
-                                <label for="thoigian" style="text-align: left;">Thoi gian dat coc:
+                                <label for="thoigian" style="text-align: left;">Thời gian đặt cọc:
                                     <input type="date" name="thoigian" id="thoigian" required>
                                 </label>
                             </div>
                           </div>
                           <div class="row">
-                          <div class="form-group col-md-6">
+                         <div class="form-group col-md-6">
                               <select class="form-control" id="diachiphongtro" name="diachiphongtro" required>
-                              <option value="Chon dia chi cua phong tro" disabled selected hidden>Chon dia chi cua phong tro</option>
-                                <option value="67 Le Van Hien">67 Le Van Hien</option>
-                                <option value="100 Nui Thanh">100 Nui Thanh</option>
-                                <option value="335 Truong Chinh">335 Truong Chinh</option>
-                                <option value="47 Phan Dang Luu">47 Phan Dang Luu</option>
-                                <option value="88 Nam Ky Khoi Nghia">88 Nam Ky Khoi Nghia</option>
-                                <option value="214 Trung Vuong">214 Trung Vuong</option>
+                              <option value="Chọn địa chỉ của phòng trọ" disabled selected hidden>Chọn địa chỉ của phòng trọ</option>
+                              <%
+								try
+								{
+									Class.forName("com.mysql.jdbc.Driver");
+									String url = "jdbc:mysql://localhost:3306/youtube";
+									String username = "root";
+									String password = "";
+									String query = "select * from phongtrolvh";
+									Connection conn = DriverManager.getConnection(url, username, password);
+									Statement stmt = conn.createStatement();
+									ResultSet rs = stmt.executeQuery(query);
+									while (rs.next()) {
+								%>
+								<option value="<%=rs.getString(2)%>"><%=rs.getString("diachi") %></option>
+								<%
+								}
+								%>
+			
+			
+								<%
+								rs.close();
+								stmt.close();
+								conn.close();
+								} catch (Exception e) {
+								e.printStackTrace();
+								}
+								%>
+                                
                               </select>
                             </div>
-                            <div class="form-group col-md-6">
-                              <select class="form-control" id="dientich" name="dientich" required>
-                              <option value="Chon dien tich phong tro" disabled selected hidden>Chon dien tich phong tro</option>
-                                <option value="12m2">Phong 12m2 - 1.300.000d</option>
-                                <option value="16m2">Phong 16m2 - 1.500.000d</option>
-                                <option value="20m2">Phong 20m2 - 2.000.000d</option>
-                                <option value="24m2">Phong 24m2 - 2.500.000d</option>
-                                <option value="30m2">Phong 30m2 - 3.000.000d</option>
-                              </select>
-                            </div>
-                            <div class="form-group col-md-6">
-                              <input class="form-control" id="nguoio" name="nguoio" type="number" placeholder="So nguoi o cung" />
+                             <div class="form-group col-md-6">
+						    <select class="form-control" id="dientich" name="dientich" required>
+						        <option value="Chọn diện tích phòng trọ" disabled selected hidden>Chọn diện tích phòng trọ</option>
+						        <% 
+						        try {
+						            Class.forName("com.mysql.jdbc.Driver");
+						            String url = "jdbc:mysql://localhost:3306/youtube";
+						            String username = "root";
+						            String password = "";
+						            String query = "select * from phongtrolvh";
+						            Connection conn = DriverManager.getConnection(url, username, password);
+						            Statement stmt = conn.createStatement();
+						            ResultSet rs = stmt.executeQuery(query);
+						            while (rs.next()) {
+						                String dientich = rs.getString("dientich");
+						                int giathanh = rs.getInt("giathanh");
+						                if (dientich != null && giathanh != 0) {
+						        %>
+						        <option value="<%=rs.getString(3)%>">Phòng <%=dientich%> - <%=giathanh%>VNĐ</option>
+						        <%
+						                }
+						            }
+						            rs.close();
+						            stmt.close();
+						            conn.close();
+						        } catch (Exception e) {
+						            e.printStackTrace();
+						        }
+						        %>
+						    </select>
+						</div>
+                           <div class="form-group col-md-6">
+                              <input class="form-control" id="nguoio" name="nguoio" type="number" placeholder="Số người ở cùng" />
                             </div>
                           </div>
                           <div class="form-group">
-                            <textarea class="form-control" id="loinhan" name="loinhan" placeholder="Them thong tin"></textarea>
+                            <textarea class="form-control" id="loinhan" name="loinhan" placeholder="Thêm lời nhắn"></textarea>
                           </div>
                           <div class="d-none" data-sb-form-success="true">
                             <div class="text-center">
-                              <p>Cam on ban da dat phong. Chung toi se lien he voi ban trong thoi gian som nhat.</p>
+                              <p>Cảm ơn bạn đã đặt phòng. Chúng tôi sẽ liên hệ với bạn sớm nhất.</p>
                             </div>
                           </div>
                           <br>
@@ -462,11 +553,11 @@
                           <div style="text-align: center;">
                             <button class="btn btn-primary" id="submitButton" type="submit" style="width: 130px; text-align: center;">
                                 
-                                Dat phong
+                                Đặt phòng
                             </button>
                             <button class="btn btn-primary" data-bs-dismiss="modal" style="width: 100px;">
                                 <i class="fas fa-xmark fa-fw"></i>
-                                Thoat
+                                Thoát
                             </button>
                            </div>
                         </form>
@@ -489,7 +580,7 @@
                     <div class="row justify-content-center">
                       <div class="col-lg-9">
                         <!-- Portfolio Modal - Title-->
-                        <h2 class="portfolio-modal-title text-secondary text-uppercase mb-0">Thong tin phong tro</h2>
+                        <h2 class="portfolio-modal-title text-secondary text-uppercase mb-0">Thông tin phòng trọ</h2>
                         <!-- Icon Divider-->
                         <div class="divider-custom">
                           <div class="divider-custom-line"></div>
@@ -499,34 +590,34 @@
                         <!-- Portfolio Modal - Image-->
                         <img class="img-fluid rounded mb-5" src="assets/img/portfolio/phongtro/3.jpg" alt="..." />
                         <!-- Portfolio Modal - Text-->
-                        <p class="mb-4">Dia chi: 335 Truong Chinh, Quan Cam Le, Da Nang.</p>
-                        <h3 style="text-align: left;">Thong tin mo ta</h3>
+                        <p class="mb-4">Dia chi: 335 Trường Chinh, Quận Cẩm Lệ, Đà Nẵng.</p>
+                        <h3 style="text-align: left;">Thông tin mô tả</h3>
                         <p style="text-align: left;">
-                          Cho thue phong tro 12m2, 16m2, 20m2, 24m2, 30m2 tu 1,8 trieu - 3 trieu tai 335 Truong Chinh - Da Nang
+                          Cho thuê phòng trọ 12m2, 16m2, 20m2, 24m2, 30m2 từ 1,8 triệu - 3 triệu tại 67 Lê Văn Hiến - Đà Nẵng
                           <br>
-                          Phong tro moi xay, co gac lung,tien nghi. Co ve sinh trong phong. Co phong de xe chung. Anh sang day du, thoang khi. Tran cach nhiet mat me.
+                          Phòng trọ mới xây, có gác lửng, tiện nghi. Có vệ sinh trong phòng, có phòng để xe chung, ánh sáng đầy đủ thoáng khí. Trần cách nhiệt mát mẻ.
                           <br>
-                          1. Phong 12m2: Cua so, Bep, WC, Gac lung chua do 3m2, de xe truoc phong. Loi vao cach duong lon 15m <br>
-                          Gia thue: 1.300.000d <br>
-                          2. Phong 16m2: Cua so, Bep, WC, Gac lung chua do 3m2, de xe truoc phong. Loi vao cach duong lon 15m <br>
-                          Gia thue: 1.500.000d <br>
-                          3. Phong 20m2 + Gac lung 4m2: Cua so , Bep, WC, Gac lung, cho de xe, hien hong gio.
-                          Loi vao cach duong lon 25m. <br>
-                          Gia thue : 2.000.000d  <br>
-                          4. Phong 24m2 + Gac lung 3m2: Cua so , Bep, WC, Gac lung, cho de xe, hien hong gio.
-                          Loi vao cach duong lon 25m. <br>
-                          Gia thue : 2.500.000d  <br>
-                          5. Phong 30m2 : Cua so , Phong bep + giat rieng, WC, gac lung chua do 2m2, cua phu ra cho de xe, hien hong gio. Loi vao rieng tu kiet, cach duong lon 20m. Kep phong de xe va sinh hoat. <br>
-                          Gia thue 3.000.000d  
+                          1. Phòng 12m2: Cửa sổ, bếp, WC, gác lửng chứa đồ 3m2, để xe trước phòng. Lối vào cách đường lớn 15m <br>
+                          Giá thuê: 1.300.000d <br>
+                          2. Phòng 16m2: Cửa sổ, bếp, WC, gác lửng chứa đồ 3m2, để xe trước phòng. Lối vào cách đường lớn 15m <br>
+                          Giá thuê: 1.500.000d <br>
+                          3. Phòng 20m2 + Gác lửng 4m2: Cửa sổ, bếp, WC, cho để xe, hiên hóng gió.
+                          Lối vào cách đường lớn 25m. <br>
+                          Giá thuê : 2.000.000d  <br>
+                          4. Phòng 24m2 + Gac lung 3m2: Cửa sổ, bếp, WC, cho để xe, hiên hóng gió.
+                          Lối vào cách đường lớn 25m. <br>
+                          Giá thuê : 2.500.000d  <br>
+                          5. Phòng 30m2 : Cửa sổ , phòng bếp + giặt riêng, WC, gác lửng chứa đồ 2m2, cửa phụ ra chổ để xe,hiên hóng gió. Lối vào cách đường lớn 20m. Có phòng để xe và sinh hoạt <br>
+                          Giá thuê: 3.000.000d  
                         </p>
-                        <h3>Thong tin lien he</h3>
+                        <h3>Thông tin liên hệ chủ trọ</h3>
                         <table class="table table-hover" style="text-align: left;">
                           <tr class="table-primary">
-                            <td class="table-light">Lien he</td>
-                            <td class="table-light">Le Thi My</td>
+                            <td class="table-light">Liên hệ</td>
+                            <td class="table-light">Lê Thị My</td>
                           </tr>
                           <tr class="table-primary">
-                            <td class="table-light">Dien thoai</td>
+                            <td class="table-light">Điện thoại</td>
                             <td class="table-light">098765432</td>
                           </tr>
                           <tr class="table-primary">
@@ -541,36 +632,36 @@
                         <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3834.9382257888125!2d108.22088631485259!3d16.04002488889164!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x31427ebe67e4e9d1%3A0x3d9a82d4f7d5c2c9!2zNjcgTGUgVmFuIEhlaW4sIFBob25nIFBob2EgUGxhemEsIFF1YW4gTmd1IEhhbmhzb24gU29uLCBEYSBOYW5n!5e0!3m2!1sen!2s!4v1623648339353!5m2!1sen!2s" width="100%" height="450" style="border:0;" allowfullscreen="" loading="lazy"></iframe>
                         <hr>
                         <br>
-                        <h6>Neu ban muon dat truoc phong tro co the dien vao form duoi day:</h6> <br>
-                        <h3>Form dat phong</h3>
+                        <h6>Nếu bạn muốn đặt trước phòng trọ có thể điền vào form dưới đây:</h6> <br>
+                        <h3>Form đặt phòng</h3>
                         <form action="portfolioModal1" id="contactForm" method="post" data-sb-form-api-token="API_TOKEN">
                           <div class="row">
                             <div class="form-group col-md-6">
-                              <input class="form-control" id="inputname" name="inputname" type="text" placeholder="Ten cua ban *" data-sb-validations="required" required/>
-                              <div class="invalid-feedback" data-sb-feedback="name:required">Ten cua ban la bat buoc.</div>
+                              <input class="form-control" id="inputname" name="inputname" type="text" placeholder="Tên của bạn *" data-sb-validations="required" required/>
+                              <div class="invalid-feedback" data-sb-feedback="name:required">Tên của bạn là bắt buộc</div>
                             </div>
                             <div class="form-group col-md-6">
-                              <input class="form-control" id="inputphone" name="inputphone" type="tel" placeholder="So dien thoai cua ban *" data-sb-validations="required" required/>
-                              <div class="invalid-feedback" data-sb-feedback="phone:required">So dien thoai cua ban la bat buoc.</div>
+                              <input class="form-control" id="inputphone" name="inputphone" type="tel" placeholder="Số điện thoại của bạn *" data-sb-validations="required" required/>
+                              <div class="invalid-feedback" data-sb-feedback="phone:required">Số điện thoại của bạn là bắt buộc</div>
                             </div>
                             <div class="form-group col-md-6">
-                                <input class="form-control" id="inputaddress" name="inputaddress" type="text" placeholder="Dia chi hien tai cua ban *" data-sb-validations="required" required/>
-                                <div class="invalid-feedback" data-sb-feedback="inputaddress:required">Dia chi cua ban la bat buoc.</div>
+                                <input class="form-control" id="inputaddress" name="inputaddress" type="text" placeholder="Địa chỉ hiện tại của bạn *" data-sb-validations="required" required/>
+                                <div class="invalid-feedback" data-sb-feedback="inputaddress:required">Địa chỉ của bạn là bắt buộc</div>
                             </div>
                             <div class="form-group col-md-6">
-                                <input class="form-control" id="inputemail" name="inputemail" type="email" placeholder="Email cua ban *" data-sb-validations="required" required/>
-                                <div class="invalid-feedback" data-sb-feedback="phone:required">Email cua ban la bat buoc.</div>
+                                <input class="form-control" id="inputemail" name="inputemail" type="email" placeholder="Email của bạn *" data-sb-validations="required" required/>
+                                <div class="invalid-feedback" data-sb-feedback="phone:required">Email của bạn là bắt buộc.</div>
                             </div>
                             <br>
                             <br>
                             <div class="form-group col-md-6">
-                                <label for="inputgender" class="form-label" style="float: left;">Gioi tinh</label> 
+                                <label for="inputgender" class="form-label" style="float: left;">Giới tính</label> 
                                 <input type="checkbox" name="gender" value="Nam" class="form-check-label"> Nam
-                                <input type="checkbox" name="gender" value="Nu" class="form-check-label"> Nu
+                                <input type="checkbox" name="gender" value="Nu" class="form-check-label"> Nữ
                             </div>
                             <br>
                             <div class="form-group col-md-6">
-                                <label for="thoigian" style="text-align: left;">Thoi gian dat coc:
+                                <label for="thoigian" style="text-align: left;">Thời gian đặt cọc:
                                     <input type="date" name="thoigian" id="thoigian" required>
                                 </label>
                             </div>
@@ -578,35 +669,78 @@
                           <div class="row">
                           <div class="form-group col-md-6">
                               <select class="form-control" id="diachiphongtro" name="diachiphongtro" required>
-                              <option value="Chon dia chi cua phong tro" disabled selected hidden>Chon dia chi cua phong tro</option>
-                                <option value="67 Le Van Hien">67 Le Van Hien</option>
-                                <option value="100 Nui Thanh">100 Nui Thanh</option>
-                                <option value="335 Truong Chinh">335 Truong Chinh</option>
-                                <option value="47 Phan Dang Luu">47 Phan Dang Luu</option>
-                                <option value="88 Nam Ky Khoi Nghia">88 Nam Ky Khoi Nghia</option>
-                                <option value="214 Trung Vuong">214 Trung Vuong</option>
+                              <option value="Chọn địa chỉ của phòng trọ" disabled selected hidden>Chọn địa chỉ của phòng trọ</option>
+                              <%
+								try
+								{
+									Class.forName("com.mysql.jdbc.Driver");
+									String url = "jdbc:mysql://localhost:3306/youtube";
+									String username = "root";
+									String password = "";
+									String query = "select * from phongtrolvh";
+									Connection conn = DriverManager.getConnection(url, username, password);
+									Statement stmt = conn.createStatement();
+									ResultSet rs = stmt.executeQuery(query);
+									while (rs.next()) {
+								%>
+								<option value="<%=rs.getString(2)%>"><%=rs.getString("diachi") %></option>
+								<%
+								}
+								%>
+			
+			
+								<%
+								rs.close();
+								stmt.close();
+								conn.close();
+								} catch (Exception e) {
+								e.printStackTrace();
+								}
+								%>
+                                
                               </select>
                             </div>
                             <div class="form-group col-md-6">
-                              <select class="form-control" id="dientich" name="dientich" required>
-                              <option value="Chon dien tich phong tro" disabled selected hidden>Chon dien tich phong tro</option>
-                                <option value="12m2">Phong 12m2 - 1.300.000d</option>
-                                <option value="16m2">Phong 16m2 - 1.500.000d</option>
-                                <option value="20m2">Phong 20m2 - 2.000.000d</option>
-                                <option value="24m2">Phong 24m2 - 2.500.000d</option>
-                                <option value="30m2">Phong 30m2 - 3.000.000d</option>
-                              </select>
-                            </div>
+						    <select class="form-control" id="dientich" name="dientich" required>
+						        <option value="Chọn diện tích phòng trọ" disabled selected hidden>Chọn diện tích phòng trọ</option>
+						        <% 
+						        try {
+						            Class.forName("com.mysql.jdbc.Driver");
+						            String url = "jdbc:mysql://localhost:3306/youtube";
+						            String username = "root";
+						            String password = "";
+						            String query = "select * from phongtrolvh";
+						            Connection conn = DriverManager.getConnection(url, username, password);
+						            Statement stmt = conn.createStatement();
+						            ResultSet rs = stmt.executeQuery(query);
+						            while (rs.next()) {
+						                String dientich = rs.getString("dientich");
+						                int giathanh = rs.getInt("giathanh");
+						                if (dientich != null && giathanh != 0) {
+						        %>
+						        <option value="<%=rs.getString(3)%>">Phòng <%=dientich%> - <%=giathanh%>VNĐ</option>
+						        <%
+						                }
+						            }
+						            rs.close();
+						            stmt.close();
+						            conn.close();
+						        } catch (Exception e) {
+						            e.printStackTrace();
+						        }
+						        %>
+						    </select>
+						</div>
                             <div class="form-group col-md-6">
-                              <input class="form-control" id="nguoio" name="nguoio" type="number" placeholder="So nguoi o cung" />
+                              <input class="form-control" id="nguoio" name="nguoio" type="number" placeholder="Số người ở cùng" />
                             </div>
                           </div>
                           <div class="form-group">
-                            <textarea class="form-control" id="loinhan" name="loinhan" placeholder="Them thong tin"></textarea>
+                            <textarea class="form-control" id="loinhan" name="loinhan" placeholder="Thêm lời nhắn"></textarea>
                           </div>
                           <div class="d-none" data-sb-form-success="true">
                             <div class="text-center">
-                              <p>Cam on ban da dat phong. Chung toi se lien he voi ban trong thoi gian som nhat.</p>
+                              <p>Cảm ơn bạn đã đặt phòng. Chúng tôi sẽ liên hệ với bạn sớm nhất.</p>
                             </div>
                           </div>
                           <br>
@@ -614,11 +748,11 @@
                           <div style="text-align: center;">
                             <button class="btn btn-primary" id="submitButton" type="submit" style="width: 130px; text-align: center;">
                                 
-                                Dat phong
+                                Đặt phòng
                             </button>
                             <button class="btn btn-primary" data-bs-dismiss="modal" style="width: 100px;">
                                 <i class="fas fa-xmark fa-fw"></i>
-                                Thoat
+                                Thoát
                             </button>
                            </div>
                         </form>
@@ -641,7 +775,7 @@
                     <div class="row justify-content-center">
                       <div class="col-lg-9">
                         <!-- Portfolio Modal - Title-->
-                        <h2 class="portfolio-modal-title text-secondary text-uppercase mb-0">Thong tin phong tro</h2>
+                        <h2 class="portfolio-modal-title text-secondary text-uppercase mb-0">Thông tin phòng trọ</h2>
                         <!-- Icon Divider-->
                         <div class="divider-custom">
                           <div class="divider-custom-line"></div>
@@ -651,34 +785,34 @@
                         <!-- Portfolio Modal - Image-->
                         <img class="img-fluid rounded mb-5" src="assets/img/portfolio/phongtro/4.jpg" alt="..." />
                         <!-- Portfolio Modal - Text-->
-                        <p class="mb-4">Dia chi: 47 Phan Dang Luu, Quan Hai Chau, Da Nang.</p>
-                        <h3 style="text-align: left;">Thong tin mo ta</h3>
+                        <p class="mb-4">Dia chi: 47 Phan Đăng Lưu, Quận Hải Châu, Đà Nẵng.</p>
+                        <h3 style="text-align: left;">Thông tin mô tả</h3>
                         <p style="text-align: left;">
-                          Cho thue phong tro 12m2, 16m2, 20m2, 24m2, 30m2 tu 1,8 trieu - 3 trieu tai 47 Phan Dang Luu - Da Nang
+                          Cho thuê phòng trọ 12m2, 16m2, 20m2, 24m2, 30m2 từ 1,8 triệu - 3 triệu tại 67 Lê Văn Hiến - Đà Nẵng
                           <br>
-                          Phong tro moi xay, co gac lung,tien nghi. Co ve sinh trong phong. Co phong de xe chung. Anh sang day du, thoang khi. Tran cach nhiet mat me.
+                          Phòng trọ mới xây, có gác lửng, tiện nghi. Có vệ sinh trong phòng, có phòng để xe chung, ánh sáng đầy đủ thoáng khí. Trần cách nhiệt mát mẻ.
                           <br>
-                          1. Phong 12m2: Cua so, Bep, WC, Gac lung chua do 3m2, de xe truoc phong. Loi vao cach duong lon 15m <br>
-                          Gia thue: 1.300.000d <br>
-                          2. Phong 16m2: Cua so, Bep, WC, Gac lung chua do 3m2, de xe truoc phong. Loi vao cach duong lon 15m <br>
-                          Gia thue: 1.500.000d <br>
-                          3. Phong 20m2 + Gac lung 4m2: Cua so , Bep, WC, Gac lung, cho de xe, hien hong gio.
-                          Loi vao cach duong lon 25m. <br>
-                          Gia thue : 2.000.000d  <br>
-                          4. Phong 24m2 + Gac lung 3m2: Cua so , Bep, WC, Gac lung, cho de xe, hien hong gio.
-                          Loi vao cach duong lon 25m. <br>
-                          Gia thue : 2.500.000d  <br>
-                          5. Phong 30m2 : Cua so , Phong bep + giat rieng, WC, gac lung chua do 2m2, cua phu ra cho de xe, hien hong gio. Loi vao rieng tu kiet, cach duong lon 20m. Kep phong de xe va sinh hoat. <br>
-                          Gia thue 3.000.000d  
+                          1. Phòng 12m2: Cửa sổ, bếp, WC, gác lửng chứa đồ 3m2, để xe trước phòng. Lối vào cách đường lớn 15m <br>
+                          Giá thuê: 1.300.000d <br>
+                          2. Phòng 16m2: Cửa sổ, bếp, WC, gác lửng chứa đồ 3m2, để xe trước phòng. Lối vào cách đường lớn 15m <br>
+                          Giá thuê: 1.500.000d <br>
+                          3. Phòng 20m2 + Gác lửng 4m2: Cửa sổ, bếp, WC, cho để xe, hiên hóng gió.
+                          Lối vào cách đường lớn 25m. <br>
+                          Giá thuê : 2.000.000d  <br>
+                          4. Phòng 24m2 + Gac lung 3m2: Cửa sổ, bếp, WC, cho để xe, hiên hóng gió.
+                          Lối vào cách đường lớn 25m. <br>
+                          Giá thuê : 2.500.000d  <br>
+                          5. Phòng 30m2 : Cửa sổ , phòng bếp + giặt riêng, WC, gác lửng chứa đồ 2m2, cửa phụ ra chổ để xe,hiên hóng gió. Lối vào cách đường lớn 20m. Có phòng để xe và sinh hoạt <br>
+                          Giá thuê: 3.000.000d  
                         </p>
-                        <h3>Thong tin lien he</h3>
+                        <h3>Thông tin liên hệ chủ trọ</h3>
                         <table class="table table-hover" style="text-align: left;">
                           <tr class="table-primary">
-                            <td class="table-light">Lien he</td>
-                            <td class="table-light">Nguyen Van Ba</td>
+                            <td class="table-light">Liên hệ</td>
+                            <td class="table-light">Nguyễn Văn Ba</td>
                           </tr>
                           <tr class="table-primary">
-                            <td class="table-light">Dien thoai</td>
+                            <td class="table-light">Điện thoại</td>
                             <td class="table-light">087654321</td>
                           </tr>
                           <tr class="table-primary">
@@ -693,36 +827,36 @@
                         <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3834.9382257888125!2d108.22088631485259!3d16.04002488889164!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x31427ebe67e4e9d1%3A0x3d9a82d4f7d5c2c9!2zNjcgTGUgVmFuIEhlaW4sIFBob25nIFBob2EgUGxhemEsIFF1YW4gTmd1IEhhbmhzb24gU29uLCBEYSBOYW5n!5e0!3m2!1sen!2s!4v1623648339353!5m2!1sen!2s" width="100%" height="450" style="border:0;" allowfullscreen="" loading="lazy"></iframe>
                         <hr>
                         <br>
-                        <h6>Neu ban muon dat truoc phong tro co the dien vao form duoi day:</h6> <br>
-                        <h3>Form dat phong</h3>
+                        <h6>Nếu bạn muốn đặt trước phòng trọ có thể điền vào form dưới đây:</h6> <br>
+                        <h3>Form đặt phòng</h3>
                         <form action="portfolioModal1" id="contactForm" method="post" data-sb-form-api-token="API_TOKEN">
                           <div class="row">
                             <div class="form-group col-md-6">
-                              <input class="form-control" id="inputname" name="inputname" type="text" placeholder="Ten cua ban *" data-sb-validations="required" required/>
-                              <div class="invalid-feedback" data-sb-feedback="name:required">Ten cua ban la bat buoc.</div>
+                              <input class="form-control" id="inputname" name="inputname" type="text" placeholder="Tên của bạn *" data-sb-validations="required" required/>
+                              <div class="invalid-feedback" data-sb-feedback="name:required">Tên của bạn là bắt buộc</div>
                             </div>
                             <div class="form-group col-md-6">
-                              <input class="form-control" id="inputphone" name="inputphone" type="tel" placeholder="So dien thoai cua ban *" data-sb-validations="required" required/>
-                              <div class="invalid-feedback" data-sb-feedback="phone:required">So dien thoai cua ban la bat buoc.</div>
+                              <input class="form-control" id="inputphone" name="inputphone" type="tel" placeholder="Số điện thoại của bạn *" data-sb-validations="required" required/>
+                              <div class="invalid-feedback" data-sb-feedback="phone:required">Số điện thoại của bạn là bắt buộc</div>
                             </div>
                             <div class="form-group col-md-6">
-                                <input class="form-control" id="inputaddress" name="inputaddress" type="text" placeholder="Dia chi hien tai cua ban *" data-sb-validations="required" required/>
-                                <div class="invalid-feedback" data-sb-feedback="inputaddress:required">Dia chi cua ban la bat buoc.</div>
+                                <input class="form-control" id="inputaddress" name="inputaddress" type="text" placeholder="Địa chỉ hiện tại của bạn *" data-sb-validations="required" required/>
+                                <div class="invalid-feedback" data-sb-feedback="inputaddress:required">Địa chỉ của bạn là bắt buộc</div>
                             </div>
                             <div class="form-group col-md-6">
-                                <input class="form-control" id="inputemail" name="inputemail" type="email" placeholder="Email cua ban *" data-sb-validations="required" required/>
-                                <div class="invalid-feedback" data-sb-feedback="phone:required">Email cua ban la bat buoc.</div>
+                                <input class="form-control" id="inputemail" name="inputemail" type="email" placeholder="Email của bạn *" data-sb-validations="required" required/>
+                                <div class="invalid-feedback" data-sb-feedback="phone:required">Email của bạn là bắt buộc.</div>
                             </div>
                             <br>
                             <br>
                             <div class="form-group col-md-6">
-                                <label for="inputgender" class="form-label" style="float: left;">Gioi tinh</label> 
+                                <label for="inputgender" class="form-label" style="float: left;">Giới tính</label> 
                                 <input type="checkbox" name="gender" value="Nam" class="form-check-label"> Nam
-                                <input type="checkbox" name="gender" value="Nu" class="form-check-label"> Nu
+                                <input type="checkbox" name="gender" value="Nu" class="form-check-label"> Nữ
                             </div>
                             <br>
                             <div class="form-group col-md-6">
-                                <label for="thoigian" style="text-align: left;">Thoi gian dat coc:
+                                <label for="thoigian" style="text-align: left;">Thời gian đặt cọc:
                                     <input type="date" name="thoigian" id="thoigian" required>
                                 </label>
                             </div>
@@ -730,35 +864,78 @@
                           <div class="row">
                           	<div class="form-group col-md-6">
                               <select class="form-control" id="diachiphongtro" name="diachiphongtro" required>
-                              <option value="Chon dia chi cua phong tro" disabled selected hidden>Chon dia chi cua phong tro</option>
-                                <option value="67 Le Van Hien">67 Le Van Hien</option>
-                                <option value="100 Nui Thanh">100 Nui Thanh</option>
-                                <option value="335 Truong Chinh">335 Truong Chinh</option>
-                                <option value="47 Phan Dang Luu">47 Phan Dang Luu</option>
-                                <option value="88 Nam Ky Khoi Nghia">88 Nam Ky Khoi Nghia</option>
-                                <option value="214 Trung Vuong">214 Trung Vuong</option>
+                              <option value="Chọn địa chỉ của phòng trọ" disabled selected hidden>Chọn địa chỉ của phòng trọ</option>
+                              <%
+								try
+								{
+									Class.forName("com.mysql.jdbc.Driver");
+									String url = "jdbc:mysql://localhost:3306/youtube";
+									String username = "root";
+									String password = "";
+									String query = "select * from phongtrolvh";
+									Connection conn = DriverManager.getConnection(url, username, password);
+									Statement stmt = conn.createStatement();
+									ResultSet rs = stmt.executeQuery(query);
+									while (rs.next()) {
+								%>
+								<option value="<%=rs.getString(2)%>"><%=rs.getString("diachi") %></option>
+								<%
+								}
+								%>
+			
+			
+								<%
+								rs.close();
+								stmt.close();
+								conn.close();
+								} catch (Exception e) {
+								e.printStackTrace();
+								}
+								%>
+                                
                               </select>
                             </div>
-                            <div class="form-group col-md-6">
-                              <select class="form-control" id="dientich" name="dientich" required>
-                              <option value="Chon dien tich phong tro" disabled selected hidden>Chon dien tich phong tro</option>
-                                <option value="12m2">Phong 12m2 - 1.300.000d</option>
-                                <option value="16m2">Phong 16m2 - 1.500.000d</option>
-                                <option value="20m2">Phong 20m2 - 2.000.000d</option>
-                                <option value="24m2">Phong 24m2 - 2.500.000d</option>
-                                <option value="30m2">Phong 30m2 - 3.000.000d</option>
-                              </select>
-                            </div>
-                            <div class="form-group col-md-6">
-                              <input class="form-control" id="nguoio" name="nguoio" type="number" placeholder="So nguoi o cung" />
+                             <div class="form-group col-md-6">
+						    <select class="form-control" id="dientich" name="dientich" required>
+						        <option value="Chọn diện tích phòng trọ" disabled selected hidden>Chọn diện tích phòng trọ</option>
+						        <% 
+						        try {
+						            Class.forName("com.mysql.jdbc.Driver");
+						            String url = "jdbc:mysql://localhost:3306/youtube";
+						            String username = "root";
+						            String password = "";
+						            String query = "select * from phongtrolvh";
+						            Connection conn = DriverManager.getConnection(url, username, password);
+						            Statement stmt = conn.createStatement();
+						            ResultSet rs = stmt.executeQuery(query);
+						            while (rs.next()) {
+						                String dientich = rs.getString("dientich");
+						                int giathanh = rs.getInt("giathanh");
+						                if (dientich != null && giathanh != 0) {
+						        %>
+						        <option value="<%=rs.getString(3)%>">Phòng <%=dientich%> - <%=giathanh%>VNĐ</option>
+						        <%
+						                }
+						            }
+						            rs.close();
+						            stmt.close();
+						            conn.close();
+						        } catch (Exception e) {
+						            e.printStackTrace();
+						        }
+						        %>
+						    </select>
+						</div>
+                           <div class="form-group col-md-6">
+                              <input class="form-control" id="nguoio" name="nguoio" type="number" placeholder="Số người ở cùng" />
                             </div>
                           </div>
                           <div class="form-group">
-                            <textarea class="form-control" id="loinhan" name="loinhan" placeholder="Them thong tin"></textarea>
+                            <textarea class="form-control" id="loinhan" name="loinhan" placeholder="Thêm lời nhắn"></textarea>
                           </div>
                           <div class="d-none" data-sb-form-success="true">
                             <div class="text-center">
-                              <p>Cam on ban da dat phong. Chung toi se lien he voi ban trong thoi gian som nhat.</p>
+                              <p>Cảm ơn bạn đã đặt phòng. Chúng tôi sẽ liên lạc sớm nhất với bạn.</p>
                             </div>
                           </div>
                           <br>
@@ -766,11 +943,11 @@
                           <div style="text-align: center;">
                             <button class="btn btn-primary" id="submitButton" type="submit" style="width: 130px; text-align: center;">
                                 
-                                Dat phong
+                                Đặt phòng
                             </button>
                             <button class="btn btn-primary" data-bs-dismiss="modal" style="width: 100px;">
                                 <i class="fas fa-xmark fa-fw"></i>
-                                Thoat
+                                Thoát
                             </button>
                            </div>
                         </form>
@@ -793,7 +970,7 @@
                     <div class="row justify-content-center">
                       <div class="col-lg-9">
                         <!-- Portfolio Modal - Title-->
-                        <h2 class="portfolio-modal-title text-secondary text-uppercase mb-0">Thong tin phong tro</h2>
+                        <h2 class="portfolio-modal-title text-secondary text-uppercase mb-0">Thông tin phòng trọ</h2>
                         <!-- Icon Divider-->
                         <div class="divider-custom">
                           <div class="divider-custom-line"></div>
@@ -803,34 +980,34 @@
                         <!-- Portfolio Modal - Image-->
                         <img class="img-fluid rounded mb-5" src="assets/img/portfolio/phongtro/5.jpg" alt="..." />
                         <!-- Portfolio Modal - Text-->
-                        <p class="mb-4">Dia chi: 88 Nam Ky Khoi Nghia, Phuong Hoa Quy, Quan Ngu Hanh Son, Da Nang.</p>
-                        <h3 style="text-align: left;">Thong tin mo ta</h3>
+                        <p class="mb-4">Địa chỉ: 88 Nam Kì Khởi Nghĩa, Phường Hòa Quý, Quận Ngũ Hành Sơn, Đà Nẵng.</p>
+                        <h3 style="text-align: left;">Thông tin mô tả</h3>
                         <p style="text-align: left;">
-                          Cho thue phong tro 12m2, 16m2, 20m2, 24m2, 30m2 tu 1,8 trieu - 3 trieu tai 88 Nam Ky Khoi Nghia - Da Nang
+                          Cho thuê phòng trọ 12m2, 16m2, 20m2, 24m2, 30m2 từ 1,8 triệu - 3 triệu tại 67 Lê Văn Hiến - Đà Nẵng
                           <br>
-                          Phong tro moi xay, co gac lung,tien nghi. Co ve sinh trong phong. Co phong de xe chung. Anh sang day du, thoang khi. Tran cach nhiet mat me.
+                          Phòng trọ mới xây, có gác lửng, tiện nghi. Có vệ sinh trong phòng, có phòng để xe chung, ánh sáng đầy đủ thoáng khí. Trần cách nhiệt mát mẻ.
                           <br>
-                          1. Phong 12m2: Cua so, Bep, WC, Gac lung chua do 3m2, de xe truoc phong. Loi vao cach duong lon 15m <br>
-                          Gia thue: 1.300.000d <br>
-                          2. Phong 16m2: Cua so, Bep, WC, Gac lung chua do 3m2, de xe truoc phong. Loi vao cach duong lon 15m <br>
-                          Gia thue: 1.500.000d <br>
-                          3. Phong 20m2 + Gac lung 4m2: Cua so , Bep, WC, Gac lung, cho de xe, hien hong gio.
-                          Loi vao cach duong lon 25m. <br>
-                          Gia thue : 2.000.000d  <br>
-                          4. Phong 24m2 + Gac lung 3m2: Cua so , Bep, WC, Gac lung, cho de xe, hien hong gio.
-                          Loi vao cach duong lon 25m. <br>
-                          Gia thue : 2.500.000d  <br>
-                          5. Phong 30m2 : Cua so , Phong bep + giat rieng, WC, gac lung chua do 2m2, cua phu ra cho de xe, hien hong gio. Loi vao rieng tu kiet, cach duong lon 20m. Kep phong de xe va sinh hoat. <br>
-                          Gia thue 3.000.000d  
+                          1. Phòng 12m2: Cửa sổ, bếp, WC, gác lửng chứa đồ 3m2, để xe trước phòng. Lối vào cách đường lớn 15m <br>
+                          Giá thuê: 1.300.000d <br>
+                          2. Phòng 16m2: Cửa sổ, bếp, WC, gác lửng chứa đồ 3m2, để xe trước phòng. Lối vào cách đường lớn 15m <br>
+                          Giá thuê: 1.500.000d <br>
+                          3. Phòng 20m2 + Gác lửng 4m2: Cửa sổ, bếp, WC, cho để xe, hiên hóng gió.
+                          Lối vào cách đường lớn 25m. <br>
+                          Giá thuê : 2.000.000d  <br>
+                          4. Phòng 24m2 + Gac lung 3m2: Cửa sổ, bếp, WC, cho để xe, hiên hóng gió.
+                          Lối vào cách đường lớn 25m. <br>
+                          Giá thuê : 2.500.000d  <br>
+                          5. Phòng 30m2 : Cửa sổ , phòng bếp + giặt riêng, WC, gác lửng chứa đồ 2m2, cửa phụ ra chổ để xe,hiên hóng gió. Lối vào cách đường lớn 20m. Có phòng để xe và sinh hoạt <br>
+                          Giá thuê: 3.000.000d  
                         </p>
-                        <h3>Thong tin lien he</h3>
+                        <h3>Thông tin liên hệ chủ trọ</h3>
                         <table class="table table-hover" style="text-align: left;">
                           <tr class="table-primary">
-                            <td class="table-light">Lien he</td>
+                            <td class="table-light">Liên hệ</td>
                             <td class="table-light">Nguyen Tran Anh</td>
                           </tr>
                           <tr class="table-primary">
-                            <td class="table-light">Dien thoai</td>
+                            <td class="table-light">Điện thoại</td>
                             <td class="table-light">067895432</td>
                           </tr>
                           <tr class="table-primary">
@@ -845,36 +1022,36 @@
                         <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3834.9382257888125!2d108.22088631485259!3d16.04002488889164!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x31427ebe67e4e9d1%3A0x3d9a82d4f7d5c2c9!2zNjcgTGUgVmFuIEhlaW4sIFBob25nIFBob2EgUGxhemEsIFF1YW4gTmd1IEhhbmhzb24gU29uLCBEYSBOYW5n!5e0!3m2!1sen!2s!4v1623648339353!5m2!1sen!2s" width="100%" height="450" style="border:0;" allowfullscreen="" loading="lazy"></iframe>
                         <hr>
                         <br>
-                        <h6>Neu ban muon dat truoc phong tro co the dien vao form duoi day:</h6> <br>
-                        <h3>Form dat phong</h3>
+                        <h6>Nếu bạn muốn đặt trước phòng trọ có thể điền vào form dưới đây:</h6> <br>
+                        <h3>Form đặt phòng</h3>
                         <form action="portfolioModal1" id="contactForm" method="post" data-sb-form-api-token="API_TOKEN">
                           <div class="row">
                             <div class="form-group col-md-6">
-                              <input class="form-control" id="inputname" name="inputname" type="text" placeholder="Ten cua ban *" data-sb-validations="required" required/>
-                              <div class="invalid-feedback" data-sb-feedback="name:required">Ten cua ban la bat buoc.</div>
+                              <input class="form-control" id="inputname" name="inputname" type="text" placeholder="Tên của bạn *" data-sb-validations="required" required/>
+                              <div class="invalid-feedback" data-sb-feedback="name:required">Tên của bạn là bắt buộc</div>
                             </div>
                             <div class="form-group col-md-6">
-                              <input class="form-control" id="inputphone" name="inputphone" type="tel" placeholder="So dien thoai cua ban *" data-sb-validations="required" required/>
-                              <div class="invalid-feedback" data-sb-feedback="phone:required">So dien thoai cua ban la bat buoc.</div>
+                              <input class="form-control" id="inputphone" name="inputphone" type="tel" placeholder="Số điện thoại của bạn *" data-sb-validations="required" required/>
+                              <div class="invalid-feedback" data-sb-feedback="phone:required">Số điện thoại của bạn là bắt buộc</div>
                             </div>
                             <div class="form-group col-md-6">
-                                <input class="form-control" id="inputaddress" name="inputaddress" type="text" placeholder="Dia chi hien tai cua ban *" data-sb-validations="required" required/>
-                                <div class="invalid-feedback" data-sb-feedback="inputaddress:required">Dia chi cua ban la bat buoc.</div>
+                                <input class="form-control" id="inputaddress" name="inputaddress" type="text" placeholder="Địa chỉ hiện tại của bạn *" data-sb-validations="required" required/>
+                                <div class="invalid-feedback" data-sb-feedback="inputaddress:required">Địa chỉ của bạn là bắt buộc</div>
                             </div>
                             <div class="form-group col-md-6">
-                                <input class="form-control" id="inputemail" name="inputemail" type="email" placeholder="Email cua ban *" data-sb-validations="required" required/>
-                                <div class="invalid-feedback" data-sb-feedback="phone:required">Email cua ban la bat buoc.</div>
+                                <input class="form-control" id="inputemail" name="inputemail" type="email" placeholder="Email của bạn *" data-sb-validations="required" required/>
+                                <div class="invalid-feedback" data-sb-feedback="phone:required">Email của bạn là bắt buộc.</div>
                             </div>
                             <br>
                             <br>
                             <div class="form-group col-md-6">
-                                <label for="inputgender" class="form-label" style="float: left;">Gioi tinh</label> 
+                                <label for="inputgender" class="form-label" style="float: left;">Giới tính</label> 
                                 <input type="checkbox" name="gender" value="Nam" class="form-check-label"> Nam
-                                <input type="checkbox" name="gender" value="Nu" class="form-check-label"> Nu
+                                <input type="checkbox" name="gender" value="Nu" class="form-check-label"> Nữ
                             </div>
                             <br>
                             <div class="form-group col-md-6">
-                                <label for="thoigian" style="text-align: left;">Thoi gian dat coc:
+                                <label for="thoigian" style="text-align: left;">Thời gian đặt cọc:
                                     <input type="date" name="thoigian" id="thoigian" required>
                                 </label>
                             </div>
@@ -882,35 +1059,78 @@
                           <div class="row">
                           <div class="form-group col-md-6">
                               <select class="form-control" id="diachiphongtro" name="diachiphongtro" required>
-                              <option value="Chon dia chi cua phong tro" disabled selected hidden>Chon dia chi cua phong tro</option>
-                                <option value="67 Le Van Hien">67 Le Van Hien</option>
-                                <option value="100 Nui Thanh">100 Nui Thanh</option>
-                                <option value="335 Truong Chinh">335 Truong Chinh</option>
-                                <option value="47 Phan Dang Luu">47 Phan Dang Luu</option>
-                                <option value="88 Nam Ky Khoi Nghia">88 Nam Ky Khoi Nghia</option>
-                                <option value="214 Trung Vuong">214 Trung Vuong</option>
+                              <option value="Chọn địa chỉ của phòng trọ" disabled selected hidden>Chọn địa chỉ của phòng trọ</option>
+                              <%
+								try
+								{
+									Class.forName("com.mysql.jdbc.Driver");
+									String url = "jdbc:mysql://localhost:3306/youtube";
+									String username = "root";
+									String password = "";
+									String query = "select * from phongtrolvh";
+									Connection conn = DriverManager.getConnection(url, username, password);
+									Statement stmt = conn.createStatement();
+									ResultSet rs = stmt.executeQuery(query);
+									while (rs.next()) {
+								%>
+								<option value="<%=rs.getString(2)%>"><%=rs.getString("diachi") %></option>
+								<%
+								}
+								%>
+			
+			
+								<%
+								rs.close();
+								stmt.close();
+								conn.close();
+								} catch (Exception e) {
+								e.printStackTrace();
+								}
+								%>
+                                
                               </select>
                             </div>
-                            <div class="form-group col-md-6">
-                              <select class="form-control" id="dientich" name="dientich" required>
-                              <option value="Chon dien tich phong tro" disabled selected hidden>Chon dien tich phong tro</option>
-                                <option value="12m2">Phong 12m2 - 1.300.000d</option>
-                                <option value="16m2">Phong 16m2 - 1.500.000d</option>
-                                <option value="20m2">Phong 20m2 - 2.000.000d</option>
-                                <option value="24m2">Phong 24m2 - 2.500.000d</option>
-                                <option value="30m2">Phong 30m2 - 3.000.000d</option>
-                              </select>
-                            </div>
-                            <div class="form-group col-md-6">
-                              <input class="form-control" id="nguoio" name="nguoio" type="number" placeholder="So nguoi o cung" />
+                             <div class="form-group col-md-6">
+						    <select class="form-control" id="dientich" name="dientich" required>
+						        <option value="Chọn diện tích phòng trọ" disabled selected hidden>Chọn diện tích phòng trọ</option>
+						        <% 
+						        try {
+						            Class.forName("com.mysql.jdbc.Driver");
+						            String url = "jdbc:mysql://localhost:3306/youtube";
+						            String username = "root";
+						            String password = "";
+						            String query = "select * from phongtrolvh";
+						            Connection conn = DriverManager.getConnection(url, username, password);
+						            Statement stmt = conn.createStatement();
+						            ResultSet rs = stmt.executeQuery(query);
+						            while (rs.next()) {
+						                String dientich = rs.getString("dientich");
+						                int giathanh = rs.getInt("giathanh");
+						                if (dientich != null && giathanh != 0) {
+						        %>
+						        <option value="<%=rs.getString(3)%>">Phòng <%=dientich%> - <%=giathanh%>VNĐ</option>
+						        <%
+						                }
+						            }
+						            rs.close();
+						            stmt.close();
+						            conn.close();
+						        } catch (Exception e) {
+						            e.printStackTrace();
+						        }
+						        %>
+						    </select>
+						</div>
+                           <div class="form-group col-md-6">
+                              <input class="form-control" id="nguoio" name="nguoio" type="number" placeholder="Số người ở cùng" />
                             </div>
                           </div>
                           <div class="form-group">
-                            <textarea class="form-control" id="loinhan" name="loinhan" placeholder="Them thong tin"></textarea>
+                            <textarea class="form-control" id="loinhan" name="loinhan" placeholder="Thêm lời nhắn"></textarea>
                           </div>
                           <div class="d-none" data-sb-form-success="true">
                             <div class="text-center">
-                              <p>Cam on ban da dat phong. Chung toi se lien he voi ban trong thoi gian som nhat.</p>
+                              <p>Cảm ơn bạn đã đặt phòng. Chúng tôi sẽ liên hệ với bạn trong thời gian sớm nhất.</p>
                             </div>
                           </div>
                           <br>
@@ -918,11 +1138,11 @@
                           <div style="text-align: center;">
                             <button class="btn btn-primary" id="submitButton" type="submit" style="width: 130px; text-align: center;">
                                 
-                                Dat phong
+                                Đặt phòng
                             </button>
                             <button class="btn btn-primary" data-bs-dismiss="modal" style="width: 100px;">
                                 <i class="fas fa-xmark fa-fw"></i>
-                                Thoat
+                                Thoát
                             </button>
                            </div>
                         </form>
@@ -945,7 +1165,7 @@
                     <div class="row justify-content-center">
                       <div class="col-lg-9">
                         <!-- Portfolio Modal - Title-->
-                        <h2 class="portfolio-modal-title text-secondary text-uppercase mb-0">Thong tin phong tro</h2>
+                        <h2 class="portfolio-modal-title text-secondary text-uppercase mb-0">Thông tin phòng trọ</h2>
                         <!-- Icon Divider-->
                         <div class="divider-custom">
                           <div class="divider-custom-line"></div>
@@ -955,34 +1175,34 @@
                         <!-- Portfolio Modal - Image-->
                         <img class="img-fluid rounded mb-5" src="assets/img/portfolio/phongtro/6.jpg" alt="..." />
                         <!-- Portfolio Modal - Text-->
-                        <p class="mb-4">Dia chi: 214 Trung Vuong, Quan Hai Chau, Da Nang.</p>
-                        <h3 style="text-align: left;">Thong tin mo ta</h3>
+                        <p class="mb-4">Dia chi: 214 Trưng Vương, Quận Hải Châu, Đà Nẵng.</p>
+                        <h3 style="text-align: left;">Thông tin mô tả</h3>
                         <p style="text-align: left;">
-                          Cho thue phong tro 12m2, 16m2, 20m2, 24m2, 30m2 tu 1,8 trieu - 3 trieu tai 214 Trung Vuong - Da Nang
+                          Cho thuê phòng trọ 12m2, 16m2, 20m2, 24m2, 30m2 từ 1,8 triệu - 3 triệu tại 67 Lê Văn Hiến - Đà Nẵng
                           <br>
-                          Phong tro moi xay, co gac lung,tien nghi. Co ve sinh trong phong. Co phong de xe chung. Anh sang day du, thoang khi. Tran cach nhiet mat me.
+                          Phòng trọ mới xây, có gác lửng, tiện nghi. Có vệ sinh trong phòng, có phòng để xe chung, ánh sáng đầy đủ thoáng khí. Trần cách nhiệt mát mẻ.
                           <br>
-                          1. Phong 12m2: Cua so, Bep, WC, Gac lung chua do 3m2, de xe truoc phong. Loi vao cach duong lon 15m <br>
-                          Gia thue: 1.300.000d <br>
-                          2. Phong 16m2: Cua so, Bep, WC, Gac lung chua do 3m2, de xe truoc phong. Loi vao cach duong lon 15m <br>
-                          Gia thue: 1.500.000d <br>
-                          3. Phong 20m2 + Gac lung 4m2: Cua so , Bep, WC, Gac lung, cho de xe, hien hong gio.
-                          Loi vao cach duong lon 25m. <br>
-                          Gia thue : 2.000.000d  <br>
-                          4. Phong 24m2 + Gac lung 3m2: Cua so , Bep, WC, Gac lung, cho de xe, hien hong gio.
-                          Loi vao cach duong lon 25m. <br>
-                          Gia thue : 2.500.000d  <br>
-                          5. Phong 30m2 : Cua so , Phong bep + giat rieng, WC, gac lung chua do 2m2, cua phu ra cho de xe, hien hong gio. Loi vao rieng tu kiet, cach duong lon 20m. Kep phong de xe va sinh hoat. <br>
-                          Gia thue 3.000.000d  
+                          1. Phòng 12m2: Cửa sổ, bếp, WC, gác lửng chứa đồ 3m2, để xe trước phòng. Lối vào cách đường lớn 15m <br>
+                          Giá thuê: 1.300.000d <br>
+                          2. Phòng 16m2: Cửa sổ, bếp, WC, gác lửng chứa đồ 3m2, để xe trước phòng. Lối vào cách đường lớn 15m <br>
+                          Giá thuê: 1.500.000d <br>
+                          3. Phòng 20m2 + Gác lửng 4m2: Cửa sổ, bếp, WC, cho để xe, hiên hóng gió.
+                          Lối vào cách đường lớn 25m. <br>
+                          Giá thuê : 2.000.000d  <br>
+                          4. Phòng 24m2 + Gac lung 3m2: Cửa sổ, bếp, WC, cho để xe, hiên hóng gió.
+                          Lối vào cách đường lớn 25m. <br>
+                          Giá thuê : 2.500.000d  <br>
+                          5. Phòng 30m2 : Cửa sổ , phòng bếp + giặt riêng, WC, gác lửng chứa đồ 2m2, cửa phụ ra chổ để xe,hiên hóng gió. Lối vào cách đường lớn 20m. Có phòng để xe và sinh hoạt <br>
+                          Giá thuê: 3.000.000d  
                         </p>
-                        <h3>Thong tin lien he</h3>
+                        <h3>Thông tin liên hệ chủ trọ</h3>
                         <table class="table table-hover" style="text-align: left;">
                           <tr class="table-primary">
-                            <td class="table-light">Lien he</td>
-                            <td class="table-light">Nguyen Van A</td>
+                            <td class="table-light">Liên hệ</td>
+                            <td class="table-light">Nguyen Van Minh</td>
                           </tr>
                           <tr class="table-primary">
-                            <td class="table-light">Dien thoai</td>
+                            <td class="table-light">Điện thoại</td>
                             <td class="table-light">012345678</td>
                           </tr>
                           <tr class="table-primary">
@@ -991,42 +1211,42 @@
                           </tr>
                           <tr class="table-primary">
                             <td class="table-light">Email</td>
-                            <td class="table-light">nguyenvana@gmail.com</td>
+                            <td class="table-light">nguyenvanminh@gmail.com</td>
                           </tr>
                         </table>
                         <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3834.9382257888125!2d108.22088631485259!3d16.04002488889164!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x31427ebe67e4e9d1%3A0x3d9a82d4f7d5c2c9!2zNjcgTGUgVmFuIEhlaW4sIFBob25nIFBob2EgUGxhemEsIFF1YW4gTmd1IEhhbmhzb24gU29uLCBEYSBOYW5n!5e0!3m2!1sen!2s!4v1623648339353!5m2!1sen!2s" width="100%" height="450" style="border:0;" allowfullscreen="" loading="lazy"></iframe>
                         <hr>
                         <br>
-                        <h6>Neu ban muon dat truoc phong tro co the dien vao form duoi day:</h6> <br>
-                        <h3>Form dat phong</h3>
+                        <h6>Nếu bạn muốn đặt trước phòng trọ có thể điền vào form dưới đây:</h6> <br>
+                        <h3>Form đặt phòng</h3>
                         <form action="portfolioModal1" id="contactForm" method="post" data-sb-form-api-token="API_TOKEN">
                           <div class="row">
                             <div class="form-group col-md-6">
-                              <input class="form-control" id="inputname" name="inputname" type="text" placeholder="Ten cua ban *" data-sb-validations="required" required/>
-                              <div class="invalid-feedback" data-sb-feedback="name:required">Ten cua ban la bat buoc.</div>
+                              <input class="form-control" id="inputname" name="inputname" type="text" placeholder="Tên của bạn *" data-sb-validations="required" required/>
+                              <div class="invalid-feedback" data-sb-feedback="name:required">Tên của bạn là bắt buộc</div>
                             </div>
                             <div class="form-group col-md-6">
-                              <input class="form-control" id="inputphone" name="inputphone" type="tel" placeholder="So dien thoai cua ban *" data-sb-validations="required" required/>
-                              <div class="invalid-feedback" data-sb-feedback="phone:required">So dien thoai cua ban la bat buoc.</div>
+                              <input class="form-control" id="inputphone" name="inputphone" type="tel" placeholder="Số điện thoại của bạn *" data-sb-validations="required" required/>
+                              <div class="invalid-feedback" data-sb-feedback="phone:required">Số điện thoại của bạn là bắt buộc</div>
                             </div>
                             <div class="form-group col-md-6">
-                                <input class="form-control" id="inputaddress" name="inputaddress" type="text" placeholder="Dia chi hien tai cua ban *" data-sb-validations="required" required/>
-                                <div class="invalid-feedback" data-sb-feedback="inputaddress:required">Dia chi cua ban la bat buoc.</div>
+                                <input class="form-control" id="inputaddress" name="inputaddress" type="text" placeholder="Địa chỉ hiện tại của bạn *" data-sb-validations="required" required/>
+                                <div class="invalid-feedback" data-sb-feedback="inputaddress:required">Địa chỉ của bạn là bắt buộc</div>
                             </div>
                             <div class="form-group col-md-6">
-                                <input class="form-control" id="inputemail" name="inputemail" type="email" placeholder="Email cua ban *" data-sb-validations="required" required/>
-                                <div class="invalid-feedback" data-sb-feedback="phone:required">Email cua ban la bat buoc.</div>
+                                <input class="form-control" id="inputemail" name="inputemail" type="email" placeholder="Email của bạn *" data-sb-validations="required" required/>
+                                <div class="invalid-feedback" data-sb-feedback="phone:required">Email của bạn là bắt buộc.</div>
                             </div>
                             <br>
                             <br>
                             <div class="form-group col-md-6">
                                 <label for="inputgender" class="form-label" style="float: left;">Gioi tinh</label> 
                                 <input type="checkbox" name="gender" value="Nam" class="form-check-label"> Nam
-                                <input type="checkbox" name="gender" value="Nu" class="form-check-label"> Nu
+                                <input type="checkbox" name="gender" value="Nu" class="form-check-label"> Nữ
                             </div>
                             <br>
                             <div class="form-group col-md-6">
-                                <label for="thoigian" style="text-align: left;">Thoi gian dat coc:
+                                <label for="thoigian" style="text-align: left;">Thời gian đặt cọc:
                                     <input type="date" name="thoigian" id="thoigian" required>
                                 </label>
                             </div>
@@ -1034,35 +1254,78 @@
                           <div class="row">
                           <div class="form-group col-md-6">
                               <select class="form-control" id="diachiphongtro" name="diachiphongtro" required>
-                              <option value="Chon dia chi cua phong tro" disabled selected hidden>Chon dia chi cua phong tro</option>
-                                <option value="67 Le Van Hien">67 Le Van Hien</option>
-                                <option value="100 Nui Thanh">100 Nui Thanh</option>
-                                <option value="335 Truong Chinh">335 Truong Chinh</option>
-                                <option value="47 Phan Dang Luu">47 Phan Dang Luu</option>
-                                <option value="88 Nam Ky Khoi Nghia">88 Nam Ky Khoi Nghia</option>
-                                <option value="214 Trung Vuong">214 Trung Vuong</option>
+                              <option value="Chọn địa chỉ của phòng trọ" disabled selected hidden>Chọn địa chỉ của phòng trọ</option>
+                              <%
+								try
+								{
+									Class.forName("com.mysql.jdbc.Driver");
+									String url = "jdbc:mysql://localhost:3306/youtube";
+									String username = "root";
+									String password = "";
+									String query = "select * from phongtrolvh";
+									Connection conn = DriverManager.getConnection(url, username, password);
+									Statement stmt = conn.createStatement();
+									ResultSet rs = stmt.executeQuery(query);
+									while (rs.next()) {
+								%>
+								<option value="<%=rs.getString(2)%>"><%=rs.getString("diachi") %></option>
+								<%
+								}
+								%>
+			
+			
+								<%
+								rs.close();
+								stmt.close();
+								conn.close();
+								} catch (Exception e) {
+								e.printStackTrace();
+								}
+								%>
+                                
                               </select>
                             </div>
                             <div class="form-group col-md-6">
-                              <select class="form-control" id="dientich" name="dientich" required>
-                              <option value="Chon dien tich phong tro" disabled selected hidden>Chon dien tich phong tro</option>
-                                <option value="12m2">Phong 12m2 - 1.300.000d</option>
-                                <option value="16m2">Phong 16m2 - 1.500.000d</option>
-                                <option value="20m2">Phong 20m2 - 2.000.000d</option>
-                                <option value="24m2">Phong 24m2 - 2.500.000d</option>
-                                <option value="30m2">Phong 30m2 - 3.000.000d</option>
-                              </select>
-                            </div>
+						    <select class="form-control" id="dientich" name="dientich" required>
+						        <option value="Chọn diện tích phòng trọ" disabled selected hidden>Chọn diện tích phòng trọ</option>
+						        <% 
+						        try {
+						            Class.forName("com.mysql.jdbc.Driver");
+						            String url = "jdbc:mysql://localhost:3306/youtube";
+						            String username = "root";
+						            String password = "";
+						            String query = "select * from phongtrolvh";
+						            Connection conn = DriverManager.getConnection(url, username, password);
+						            Statement stmt = conn.createStatement();
+						            ResultSet rs = stmt.executeQuery(query);
+						            while (rs.next()) {
+						                String dientich = rs.getString("dientich");
+						                int giathanh = rs.getInt("giathanh");
+						                if (dientich != null && giathanh != 0) {
+						        %>
+						        <option value="<%=rs.getString(3)%>">Phòng <%=dientich%> - <%=giathanh%>VNĐ</option>
+						        <%
+						                }
+						            }
+						            rs.close();
+						            stmt.close();
+						            conn.close();
+						        } catch (Exception e) {
+						            e.printStackTrace();
+						        }
+						        %>
+						    </select>
+						</div>
                             <div class="form-group col-md-6">
-                              <input class="form-control" id="nguoio" name="nguoio" type="number" placeholder="So nguoi o cung" />
+                              <input class="form-control" id="nguoio" name="nguoio" type="number" placeholder="Số người ở cùng" />
                             </div>
                           </div>
                           <div class="form-group">
-                            <textarea class="form-control" id="loinhan" name="loinhan" placeholder="Them thong tin"></textarea>
+                            <textarea class="form-control" id="loinhan" name="loinhan" placeholder="Thêm lời nhắn"></textarea>
                           </div>
                           <div class="d-none" data-sb-form-success="true">
                             <div class="text-center">
-                              <p>Cam on ban da dat phong. Chung toi se lien he voi ban trong thoi gian som nhat.</p>
+                              <p>Cảm ơn bạn đã đặt phòng. Chúng tôi sẽ liên hệ với bạn trong thời gian sớm nhất.</p>
                             </div>
                           </div>
                           <br>
@@ -1070,11 +1333,11 @@
                           <div style="text-align: center;">
                             <button class="btn btn-primary" id="submitButton" type="submit" style="width: 130px; text-align: center;">
                                 
-                                Dat phong
+                                Đặt phòng
                             </button>
                             <button class="btn btn-primary" data-bs-dismiss="modal" style="width: 100px;">
                                 <i class="fas fa-xmark fa-fw"></i>
-                                Thoat
+                                Thoát
                             </button>
                            </div>
                         </form>
@@ -1091,9 +1354,9 @@
     <div class="container px-4 px-lg-5">
         <div class="row gx-4 gx-lg-5 justify-content-center">
             <div class="col-lg-8 col-xl-6 text-center">
-                <h2 class="mt-0">Lien he voi chung toi!</h2>
+                <h2 class="mt-0">Liên hệ với chúng tôi!</h2>
                 <hr class="divider" />
-                <p class="text-muted mb-5">Vui long dien thong tin vao form!</p>
+                <p class="text-muted mb-5">Vui lòng điền thông tin vào form!</p>
             </div>
         </div>
         <div class="row gx-4 gx-lg-5 justify-content-center mb-5">
@@ -1102,30 +1365,30 @@
                     <!-- Name input-->
                     <div class="form-floating mb-3">
                         <input class="form-control" id="name" name="name" type="text" placeholder="Enter your name..." data-sb-validations="required" required/>
-                        <label for="name">Ho ten</label>
-                        <div class="invalid-feedback" data-sb-feedback="name:required">Ten la bat buoc.</div>
+                        <label for="name">Họ tên</label>
+                        <div class="invalid-feedback" data-sb-feedback="name:required">Tên là bắt buộc.</div>
                     </div>
                     <!-- Email address input-->
                     <div class="form-floating mb-3">
                         <input class="form-control" id="email" name="email" type="email" placeholder="name@example.com" data-sb-validations="required,email" required/>
-                        <label for="email">Dia chi email</label>
-                        <div class="invalid-feedback" data-sb-feedback="email:required">Dia chi email la bat buoc.</div>
-                        <div class="invalid-feedback" data-sb-feedback="email:email">Email khong dung.</div>
+                        <label for="email">Địa chỉ email</label>
+                        <div class="invalid-feedback" data-sb-feedback="email:required">Địa chỉ email là bắt buộc.</div>
+                        <div class="invalid-feedback" data-sb-feedback="email:email">Email không đúng.</div>
                     </div>
                     <!-- Phone number input-->
                     <div class="form-floating mb-3">
                         <input class="form-control" id="phone" name="phone" type="tel" placeholder="(123) 456-7890" data-sb-validations="required" required/>
-                        <label for="phone">So dien thoai</label>
-                        <div class="invalid-feedback" data-sb-feedback="phone:required">So dien thoai la bat buoc</div>
+                        <label for="phone">Số điện thoại</label>
+                        <div class="invalid-feedback" data-sb-feedback="phone:required">Số điện thoại là bắt buộc</div>
                     </div>
                     <!-- Message input-->
                     <div class="form-floating mb-3">
                         <textarea class="form-control" id="message" name="message" type="text"placeholder="Enter your message here..." style="height: 10rem" data-sb-validations="required" required></textarea>
-                        <label for="message">Tin nhan</label>
-                        <div class="invalid-feedback" data-sb-feedback="message:required">Tin nhan la bat buoc.</div>
+                        <label for="message">Lời nhắn</label>
+                        <div class="invalid-feedback" data-sb-feedback="message:required">Tin nhắn là bắt buộc.</div>
                     </div>
                     <!-- Submit Button-->
-                    <div class="d-grid"><button class="btn btn-primary btn-xl" id="submitButton" type="submit">Gui</button></div>
+                    <div class="d-grid"><button class="btn btn-primary btn-xl" id="submitButton" type="submit">Gửi</button></div>
                 </form>
             </div>
         </div>
@@ -1137,9 +1400,19 @@
         </div>
     </div>
 </section>
+	
+	<script type="text/javascript">
+	const submitButton = document.getElementById('submitButton');
+
+	submitButton.addEventListener('click', function() {
+	  alert('Đặt phòng thành công');
+	});
+
+	</script>
+		
         <!-- Footer-->
         <footer class="bg-light py-5">
-            <div class="container px-4 px-lg-5"><div class="small text-center text-muted">Copyright &copy; 2023 - NTP</div></div>
+            <div class="container px-4 px-lg-5"><div class="small text-center text-muted">Bản quyền &copy; 2023 - NTP</div></div>
         </footer>
         <!-- Bootstrap core JS-->
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
